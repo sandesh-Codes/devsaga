@@ -1,6 +1,7 @@
-import { buildDebugPrompt } from "../../../lib/prompt";
-import { getAIResponse } from "../../../lib/ai";
-import { parseAIResponse } from "../../../utils/parser";
+import { buildDebugPrompt } from "@/lib/prompt";
+import { getAIResponse } from "@/lib/ai";
+import { parseAIResponse } from "@/utils/parser";
+import { prisma } from "@/lib/prisma"
 
 export async function POST(req){
     try {
@@ -11,6 +12,16 @@ export async function POST(req){
         const aiText = await getAIResponse(prompt)
 
         const parsed = parseAIResponse(aiText)
+
+        await prisma.debugSession.create({
+            data: {
+                error: body.error,
+                code: body.code,
+                context: body.context,
+                category: body.category,
+                response: parsed
+            }
+        })
 
         return Response.json(parsed)
 

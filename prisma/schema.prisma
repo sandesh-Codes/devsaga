@@ -1,0 +1,19 @@
+model debugSession {
+    id  String  @id @default(cuid())
+    error   String
+    code    String
+    context String?
+    category    String
+    response    Json
+    createdAt   DateTime @default(now())
+}
+
+datasource db {
+    provider = "postgresql"
+    url = env("DATABASE_URL")
+    directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}

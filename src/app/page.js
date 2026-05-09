@@ -2,6 +2,7 @@
 import { useState } from "react";
 import InputForm from "@/components/InputForm";
 import OutputPanel from "@/components/OutputPanel";
+import DebugHistory from "@/components/DebugHistory";
 
 export default function Home() {
   const [result, setResult] = useState(null);
@@ -34,7 +35,7 @@ export default function Home() {
       <h1 className="text-2xl font-bold">AI Debugger</h1>
 
       <InputForm onSubmit={handleSubmit} />
-
+      <DebugHistory onSelect={setResult} />
       {loading && <p>Analyzing...</p>}
 
       <OutputPanel data={result} />
