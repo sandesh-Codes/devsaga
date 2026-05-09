@@ -13,7 +13,6 @@ export default function OutputPanel({ data }) {
           {data.steps.map((step, i) => (
             <li key={i}>{step}</li>
           ))}
-          
         </ul>
       </SectionBlock>
       <SectionBlock title="Fixed Code">
