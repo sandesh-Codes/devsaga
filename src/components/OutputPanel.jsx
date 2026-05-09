@@ -1,4 +1,5 @@
 import SectionBlock from "./SectionBlock";
+import CopyButton from "./CopyButton";
 
 export default function OutputPanel({ data }) {
   if (!data) return null;
@@ -12,10 +13,12 @@ export default function OutputPanel({ data }) {
           {data.steps.map((step, i) => (
             <li key={i}>{step}</li>
           ))}
+          
         </ul>
       </SectionBlock>
       <SectionBlock title="Fixed Code">
-        <pre className="bg-gray-100 p-2">{data.fixedCode}</pre>
+        <CopyButton text={data.fixedCode} />
+        <pre className="bg-gray-100 p-2 mt-2 overflow-x-auto">{data.fixedCode}</pre>
       </SectionBlock>
       <SectionBlock title="Common Mistakes">
         <ul className="list-disc ml-5">

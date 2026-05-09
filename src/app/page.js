@@ -36,7 +36,14 @@ export default function Home() {
 
       <InputForm onSubmit={handleSubmit} />
       <DebugHistory onSelect={setResult} />
-      {loading && <p>Analyzing...</p>}
+      {loading && (
+        <div className="border rounded-lg p-4 animate-pulse">
+          <p className="font-medium">Analyzing your bug...</p>
+          <p className="text-sm text-gray-500">
+            Finding root cause and generating fix...
+          </p>
+        </div>
+      )}
 
       <OutputPanel data={result} />
     </main>
