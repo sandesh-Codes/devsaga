@@ -6,7 +6,8 @@ export default function InputForm({ onSubmit }) {
         error: "",
         code: "",
         context: "",
-        category: "Bug"
+        category: "Bug",
+        simpler: false
     })
 
     function handleChange(e) {
@@ -62,6 +63,13 @@ export default function InputForm({ onSubmit }) {
           </select>
 
         <button className="bg-black text-white px-4 py-2">Debug</button>
+        <label className="flex gap-2 items-center">
+            <input 
+            type="checkbox"
+            checked={form.simpler}
+            onChange={(e) =>
+                setForm({...form, simpler:e.target.checked}) } />Explain Simpler
+        </label>
         </form>
     )
 

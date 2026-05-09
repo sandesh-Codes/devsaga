@@ -1,4 +1,4 @@
-export function buildDebugPrompt({ error, code, context, category }) {
+export function buildDebugPrompt({ error, code, context, category, simpler }) {
   return `
     You are a senior software engineer helping debug issues.
 
@@ -15,6 +15,9 @@ export function buildDebugPrompt({ error, code, context, category }) {
 
     Category:
     ${category}
+
+    Explain simpler:
+    ${simpler ? "Yes, explain for absolute beginner." : "No"}
 
     ---
 
