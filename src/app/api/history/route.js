@@ -2,7 +2,7 @@ import {prisma} from "@/lib/prisma"
 
 export async function GET() {
     try {
-    const sessions = await prisma.debugSession.findMany({
+    const sessions = await prisma.DebugSession.findMany({
       orderBy: {
         createdAt: "desc"
       },

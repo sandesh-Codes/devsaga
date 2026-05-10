@@ -1,4 +1,4 @@
-model debugSession {
+model DebugSession {
     id  String  @id @default(cuid())
     error   String
     code    String

@@ -13,7 +13,7 @@ export async function POST(req){
 
         const parsed = parseAIResponse(aiText)
 
-        await prisma.debugSession.create({
+        await prisma.DebugSession.create({
             data: {
                 error: body.error,
                 code: body.code,
