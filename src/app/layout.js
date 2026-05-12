@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Elva",
+  title: "DevSaga",
   description: "AI-powered debugging assistant that helps you debug errors and tracks your errors over time, identifies your weak spots, and recommends free resources to help you improve.",
 };
 
