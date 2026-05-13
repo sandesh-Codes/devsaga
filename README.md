@@ -1,7 +1,7 @@
-# Elva
+# DevSaga
 ### *"Learning from mistakes never been so easy."*
 
-Elva is an AI-powered debugging companion that doesn't just fix your errors — it learns your patterns, identifies your weak spots, and helps you grow as a developer over time.
+DevSaga is an AI-powered debugging companion that doesn't just fix your errors — it learns your patterns, identifies your weak spots, and helps you grow as a developer over time.
 
 ![Elva Banner](https://placehold.co/1200x400?text=Elva+Banner)
 
@@ -11,9 +11,9 @@ Elva is an AI-powered debugging companion that doesn't just fix your errors — 
 
 - **AI Debugging** — Paste your error, code, and context. Get a structured response with a simple explanation, root cause, step-by-step fix, and common related mistakes.
 - **Debugging History** — Every debug session is saved. Revisit past errors anytime.
-- **Pattern Recognition** — Elva learns from your debugging history and identifies recurring weak spots in your code.
+- **Pattern Recognition** — DevSaga learns from your debugging history and identifies recurring weak spots in your code.
 - **Personalized Insights** — Get summaries like *"You tend to struggle with state management"* based on your actual history.
-- **Resource Suggestions** — Elva suggests free learning resources targeted at your specific weak areas.
+- **Resource Suggestions** — DevSaga suggests free learning resources targeted at your specific weak areas.
 - **Structured Output** — Responses are clean, organized, and easy to act on. No walls of text.
 
 ---
@@ -53,8 +53,8 @@ Elva is an AI-powered debugging companion that doesn't just fix your errors — 
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/sandesh-Codes/elva.git
-cd elva
+git clone https://github.com/sandesh-Codes/devsaga.git
+cd devsaga
 ```
 
 2. **Install dependencies**
@@ -99,7 +99,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## 📁 Project Structure
 
 ```
-elva/src/
+devsaga/src/
 ├── app/
 │   ├── api/          # API routes
 │   ├── (auth)/       # Auth pages
