@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 160" width="440" height="160">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#07070f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d0d1a;stop-opacity:1" />
+    </linearGradient>
+
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a78bfa" />
+      <stop offset="100%" style="stop-color:#60a5fa" />
+    </linearGradient>
+
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff" />
+      <stop offset="100%" style="stop-color:#c4b5fd" />
+    </linearGradient>
+
+    <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7c6af7;stop-opacity:0" />
+      <stop offset="40%" style="stop-color:#7c6af7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+    </linearGradient>
+
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#7c6af7;stop-opacity:0.35" />
+      <stop offset="100%" style="stop-color:#7c6af7;stop-opacity:0" />
+    </radialGradient>
+
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="440" height="160" rx="16" fill="url(#bgGrad)"/>
+  <rect width="440" height="160" rx="16" fill="none" stroke="#1e1e30" stroke-width="1"/>
+
+  <!-- Glow blob -->
+  <ellipse cx="72" cy="80" rx="44" ry="44" fill="url(#glowGrad)"/>
+
+  <!-- Icon background circle -->
+  <circle cx="72" cy="80" r="30" fill="#0d0d1a" stroke="#2a2a40" stroke-width="1"/>
+
+  <!-- Journey path — winding road representing a saga -->
+  <path
+    d="M48,96 Q52,88 58,84 Q64,80 64,74 Q64,68 70,64 Q76,60 80,54"
+    fill="none"
+    stroke="url(#pathGrad)"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    filter="url(#glow)"
+  />
+
+  <!-- Milestone dots along the path -->
+  <circle cx="58" cy="84" r="2.5" fill="#7c6af7" filter="url(#glow)" opacity="0.8"/>
+  <circle cx="64" cy="74" r="2.5" fill="#8b7cf7" filter="url(#glow)" opacity="0.9"/>
+  <circle cx="70" cy="64" r="2.5" fill="#9d8df8" filter="url(#glow)"/>
+
+  <!-- Star/destination at top of path -->
+  <g filter="url(#softGlow)">
+    <polygon
+      points="80,47 82,53 88,53 83,57 85,63 80,59 75,63 77,57 72,53 78,53"
+      fill="url(#iconGrad)"
+    />
+  </g>
+
+  <!-- Orbit ring around icon -->
+  <circle cx="72" cy="80" r="30" fill="none" stroke="#7c6af7" stroke-width="0.5" stroke-dasharray="3,6" opacity="0.3"/>
+
+  <!-- Small accent dots -->
+  <circle cx="44" cy="66" r="1.5" fill="#60a5fa" opacity="0.5"/>
+  <circle cx="100" cy="90" r="1.5" fill="#a78bfa" opacity="0.4"/>
+  <circle cx="96" cy="62" r="1" fill="#60a5fa" opacity="0.4"/>
+
+  <!-- Wordmark -->
+  <text
+    x="118"
+    y="88"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="48"
+    font-weight="700"
+    letter-spacing="-1.5"
+    fill="url(#textGrad)"
+  >devsaga</text>
+
+  <!-- Separator line -->
+  <line x1="118" y1="100" x2="408" y2="100" stroke="#1e1e30" stroke-width="0.8"/>
+
+  <!-- Tagline -->
+  <text
+    x="119"
+    y="118"
+    font-family="'Courier New', Courier, monospace"
+    font-size="10.5"
+    letter-spacing="2.2"
+    fill="#4a4a65"
+  >LEARNING FROM MISTAKES</text>
+
+</svg>

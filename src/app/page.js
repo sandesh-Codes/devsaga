@@ -37,12 +37,9 @@ export default function Home() {
       <aside className="w-60 min-w-[240px] bg-[#0d0d1a] border-r border-[#1e1e30] flex flex-col">
  
         {/* Logo */}
-        <div className="p-5 border-b border-[#1e1e30] flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#7c6af7] to-[#60a5fa] flex items-center justify-center text-white font-bold shadow-[0_0_16px_rgba(124,106,247,0.4)]">
-            ⚡
-          </div>
-          <span className="font-serif text-xl text-white tracking-tight">elva</span>
-        </div>
+        <div className="p-5 border-b border-[#1e1e30]">
+  <img src="/devsaga-logo.svg" alt="DevSaga" className="h-20 w-auto" />
+</div>
  
         {/* Nav */}
         <div className="p-3 border-b border-[#1e1e30]">
