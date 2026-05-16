@@ -1,7 +1,7 @@
 import { buildDebugPrompt } from "@/lib/prompt";
 import { getAIResponse } from "@/lib/ai";
 import { parseAIResponse } from "@/utils/parser";
-import { prisma } from "@/lib/prisma"
+import { prisma } from "@/lib/db"
 
 export async function POST(req){
     try {
