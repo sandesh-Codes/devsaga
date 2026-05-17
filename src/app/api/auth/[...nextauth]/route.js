@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google"
 import GitHubProvider from "next-auth/providers/github";
 import { prisma } from "@/lib/db"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { signIn } from "next-auth/react";
 
 export const authOptions = {
     adapter: PrismaAdapter(prisma),
@@ -27,6 +28,10 @@ export const authOptions = {
 
     session: {
         strategy: "database"
+    },
+
+    pages: {
+        signIn: "/login"
     },
 
     callbacks: {

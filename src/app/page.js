@@ -103,12 +103,21 @@ export default function Home() {
             >
               ⚡ New Debug
             </button>
-            <button
-            onClick={() => signOut()}
-            className="border px-3 py-1"
-            >
-
-            </button>
+           {session ? (
+  <button
+    onClick={() => signOut()}
+    className="px-4 py-1.5 text-sm text-[#6b6b8a] border border-[#2a2a40] rounded-lg hover:text-white hover:border-[#4a4a65] transition-colors cursor-pointer"
+  >
+    Logout
+  </button>
+) : (
+  <button
+    onClick={() => signIn()}
+    className="px-4 py-1.5 text-sm text-[#7c6af7] border border-[#7c6af7]/40 rounded-lg hover:bg-[#7c6af7]/10 transition-colors cursor-pointer"
+  >
+    Sign in
+  </button>
+)}
           </div>
         </div>
  
