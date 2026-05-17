@@ -28,7 +28,7 @@ export default function DebugHistory({ onSelect }) {
       try {
         const res  = await fetch("/api/history");
         const data = await res.json().catch(() => []);
-        setHistory(data);
+        setHistory(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("History fetch error: ", error);
       }

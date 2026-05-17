@@ -3,8 +3,10 @@ import { useState } from "react";
 import InputForm from "@/components/InputForm";
 import OutputPanel from "@/components/OutputPanel";
 import DebugHistory from "@/components/DebugHistory";
+import { signIn, signOut, useSession } from "next-auth/react";
  
 export default function Home() {
+  const { data: session } = useSession();
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -53,7 +55,19 @@ export default function Home() {
         {/* Recent history list */}
         <div className="flex-1 overflow-hidden flex flex-col p-3">
           <p className="text-[10px] tracking-widest text-[#4a4a65] px-2 mb-2 font-mono">RECENT</p>
-          <DebugHistory onSelect={setResult} />
+          {session ? (
+            <DebugHistory onSelect={setResult} />
+          ) : (
+            <div className="px-2 py-3 rounded-lg border border-[#1e1e30] text-center space-y-2"> 
+            <p className="text-xs text-[#4a4a65] font-mono">Sign in to view history</p>
+            <button
+            onClick={() => signIn()}
+            className="w-full text-xs bg-[#7c6af7] hover:bg-[#6a59e0] text-white px-3 py-1.5 rounded-md transition-colors"
+            >
+              Sign in
+            </button>
+            </div>
+          )}
         </div>
  
         {/* User */}
@@ -88,6 +102,12 @@ export default function Home() {
               className="px-4 py-1.5 text-sm text-white bg-gradient-to-r from-[#7c6af7] to-[#60a5fa] rounded-lg shadow-[0_0_20px_rgba(124,106,247,0.3)] hover:shadow-[0_0_28px_rgba(124,106,247,0.5)] hover:-translate-y-px transition-all cursor-pointer"
             >
               ⚡ New Debug
+            </button>
+            <button
+            onClick={() => signOut()}
+            className="border px-3 py-1"
+            >
+
             </button>
           </div>
         </div>

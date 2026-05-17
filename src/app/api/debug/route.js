@@ -2,9 +2,19 @@ import { buildDebugPrompt } from "@/lib/prompt";
 import { getAIResponse } from "@/lib/ai";
 import { parseAIResponse } from "@/utils/parser";
 import { prisma } from "@/lib/db"
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req){
     try {
+        const session = await getServerSession(authOptions)
+
+        if (!session) {
+            return Response.json(
+                {error: "Unauthorized"},
+                {status: 401}
+            )
+        }
         const body = await req.json()
         
         const prompt = buildDebugPrompt(body)
@@ -19,7 +29,8 @@ export async function POST(req){
                 code: body.code,
                 context: body.context,
                 category: body.category,
-                response: parsed
+                response: parsed,
+                userId: session.user.id
             }
         })
 
