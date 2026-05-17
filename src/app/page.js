@@ -4,8 +4,10 @@ import InputForm from "@/components/InputForm";
 import OutputPanel from "@/components/OutputPanel";
 import DebugHistory from "@/components/DebugHistory";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation"
  
 export default function Home() {
+  const router = useRouter()
   const { data: session } = useSession();
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -47,7 +49,8 @@ export default function Home() {
         <div className="p-3 border-b border-[#1e1e30]">
           <p className="text-[10px] tracking-widest text-[#4a4a65] px-2 mb-2 font-mono">MENU</p>
           <NavItem icon="🔍" label="Debug"      active={activeNav === "debug"}    onClick={() => setActiveNav("debug")} />
-          <NavItem icon="📋" label="History"    active={activeNav === "history"}  onClick={() => setActiveNav("history")} />
+          <NavItem icon="📋" label="History"    active={activeNav === "history"}  
+          onClick={() => router.push("/history")} />
           <NavItem icon="🧠" label="My Patterns" active={activeNav === "patterns"} onClick={() => setActiveNav("patterns")} />
           <NavItem icon="📚" label="Resources"  active={activeNav === "resources"} onClick={() => setActiveNav("resources")} />
         </div>
