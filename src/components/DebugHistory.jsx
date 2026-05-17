@@ -1,7 +1,7 @@
 "use client";
  
 import { useState, useEffect } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
  
 const CATEGORY_COLORS = {
   Bug:                   { bg: "bg-[#f87171]/10", text: "text-[#f87171]" },
@@ -47,7 +47,7 @@ export default function DebugHistory({ onSelect }) {
   }
  
   return (
-    <ScrollArea className="flex-1 -mx-1">
+    <ScrollArea className="flex-1 min-h-0 h-full -mx-1">
       <div className="space-y-1 px-1">
         {history.map((item) => {
           const colors = CATEGORY_COLORS[item.category] || CATEGORY_COLORS["Bug"];
@@ -85,6 +85,7 @@ export default function DebugHistory({ onSelect }) {
           );
         })}
       </div>
+      <ScrollBar className="bg-transparent [&>div]:bg-[#2a2a40] hover:[&>div]:bg-[#7c6af7]" />
     </ScrollArea>
   );
 }
