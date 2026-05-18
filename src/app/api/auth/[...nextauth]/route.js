@@ -15,6 +15,7 @@ export const authOptions = {
             httpOptions: {
                 timeout: 10000,
             },
+            allowDangerousEmailAccountLinking: true,
         }),
 
         GitHubProvider({
@@ -23,6 +24,7 @@ export const authOptions = {
             httpOptions: {
                 timeout: 10000,
             },
+            allowDangerousEmailAccountLinking: true,
         }),
     ],
 
