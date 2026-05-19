@@ -105,18 +105,36 @@ export default function Home() {
           )}
         </div>
 
-        {/* User */}
-        <div className="p-3 border-t border-[#1e1e30]">
-          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#7c6af7] to-[#60a5fa] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
-              S
-            </div>
-            <div className="min-w-0">
-              <p className="text-sm text-white font-medium truncate">sandesh-codes</p>
-              <p className="text-xs text-[#6b6b8a]">Free plan</p>
-            </div>
-          </div>
+        
+       {/* User */}
+<div className="p-3 border-t border-[#1e1e30]">
+  {session ? (
+    <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors">
+      {session.user.image ? (
+        <img
+          src={session.user.image}
+          alt={session.user.name}
+          className="w-8 h-8 rounded-full flex-shrink-0 object-cover"
+        />
+      ) : (
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#7c6af7] to-[#60a5fa] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+          {session.user.name?.charAt(0).toUpperCase()}
         </div>
+      )}
+      <div className="min-w-0">
+        <p className="text-sm text-white font-medium truncate">{session.user.name}</p>
+        <p className="text-xs text-[#6b6b8a]">Free plan</p>
+      </div>
+    </div>
+  ) : (
+    <div className="flex items-center gap-3 p-2 rounded-lg">
+      <div className="w-8 h-8 rounded-full bg-[#1e1e30] flex-shrink-0" />
+      <div className="min-w-0">
+        <p className="text-sm text-[#4a4a65] truncate">Not signed in</p>
+      </div>
+    </div>
+  )}
+</div>
       </aside>
 
       {/* ── MAIN ── */}
