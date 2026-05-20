@@ -78,6 +78,15 @@ export default function Home() {
           </button>
         </div>
 
+        <button onClick={async () => {
+  const res = await fetch('/api/irt/analyze', { method: 'POST' });
+  const data = await res.json();
+  console.log(data);
+}}
+className="text-white">
+  Test Analyze
+</button>
+
         {/* Nav */}
         <div className="p-3 border-b border-[#1e1e30]">
           <p className="text-[10px] tracking-widest text-[#4a4a65] px-2 mb-2 font-mono">MENU</p>

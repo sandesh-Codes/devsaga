@@ -22,16 +22,17 @@ export function parseAIResponse(text) {
       steps: Array.isArray(parsed.steps) ? parsed.steps : [],
       fixedCode: parsed.fixedCode || "",
       mistakes: Array.isArray(parsed.mistakes) ? parsed.mistakes : [],
+      weakArea: parsed.weakArea || "General Programming",
     };
   } catch (error) {
     console.log("Parsing failed: ", error);
-
     return {
       rootCause: "Parsing error",
       explanation: text,
       steps: [],
       fixedCode: "",
       mistakes: [],
+      weakArea: "General Programming",
     };
   }
 }

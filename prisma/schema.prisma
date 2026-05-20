@@ -20,6 +20,7 @@ model User {
   accounts      Account[]
   debugSessions DebugSession[]
   sessions      Session[]
+  weakSpots     WeakSpot[]
 }
 
 model DebugSession {
@@ -31,9 +32,43 @@ model DebugSession {
   response  Json
   createdAt DateTime @default(now())
   weakArea  String?
-  difficulty  String?
   userId    String
   user      User     @relation(fields: [userId], references: [id])
+}
+
+model WeakSpot {
+  id           String        @id @default(cuid())
+  topic        String
+  description  String
+  confidence   Int           @default(1)
+  sessionCount Int           @default(1)
+  resolved     Boolean       @default(false)
+  resources    Resource[]
+  testAttempts TestAttempt[]
+  userId       String
+  user         User          @relation(fields: [userId], references: [id])
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Resource {
+  id         String   @id @default(cuid())
+  title      String
+  url        String
+  type       String
+  weakSpotId String
+  weakSpot   WeakSpot @relation(fields: [weakSpotId], references: [id])
+}
+
+model TestAttempt {
+  id         String   @id @default(cuid())
+  mcqAnswers Json
+  codeAnswer String
+  aiFeedback String
+  score      Int
+  weakSpotId String
+  weakSpot   WeakSpot @relation(fields: [weakSpotId], references: [id])
+  createdAt  DateTime @default(now())
 }
 
 model Account {
