@@ -41,4 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 # soul of app
-lib/prompts.js
+src/lib/prompts.js
