@@ -1,4 +1,4 @@
-import { buildDebugPrompt } from "@/lib/prompt";
+import { buildDebugPrompt } from "@/lib/prompts";
 import { getAIResponse } from "@/lib/ai";
 import { parseAIResponse } from "@/utils/parser";
 import { prisma } from "@/lib/db";

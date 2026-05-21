@@ -36,3 +36,88 @@ export function parseAIResponse(text) {
     };
   }
 }
+
+
+export function parseAnalysisResponse(text) {
+  try {
+    let cleaned = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+
+    const firstBrace = cleaned.indexOf("{");
+    const lastBrace = cleaned.lastIndexOf("}");
+    cleaned = cleaned.slice(firstBrace, lastBrace + 1);
+
+    const parsed = JSON.parse(cleaned);
+    const spots = Array.isArray(parsed.weakSpots) ? parsed.weakSpots : [];
+    return deduplicateWeakSpots(spots);
+  } catch (error) {
+    console.error("Analysis parsing failed:", error);
+    return [];
+  }
+}
+
+export function deduplicateWeakSpots(spots) {
+  const seen = [];
+
+  for (const spot of spots) {
+    const isDuplicate = seen.some(s => {
+      const a = s.topic.toLowerCase();
+      const b = spot.topic.toLowerCase();
+      const aWords = a.split(" ").filter(w => w.length > 3);
+      const bWords = b.split(" ").filter(w => w.length > 3);
+      const overlap = aWords.filter(w => bWords.includes(w));
+      return overlap.length >= 2;
+    });
+
+    if (!isDuplicate) seen.push(spot);
+  }
+
+  return seen;
+}
+
+export function parseResourcesResponse(text) {
+  try {
+    let cleaned = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+
+    const firstBrace = cleaned.indexOf("{");
+    const lastBrace = cleaned.lastIndexOf("}");
+    cleaned = cleaned.slice(firstBrace, lastBrace + 1);
+
+    const parsed = JSON.parse(cleaned);
+    return Array.isArray(parsed.resources) ? parsed.resources : [];
+  } catch (error) {
+    console.error("Resources parsing failed:", error);
+    return [];
+  }
+}
+
+
+export function parseTestResponse(text) {
+  try {
+    let cleaned = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+
+    const firstBrace = cleaned.indexOf("{");
+    const lastBrace = cleaned.lastIndexOf("}");
+    cleaned = cleaned.slice(firstBrace, lastBrace + 1);
+
+    const parsed = JSON.parse(cleaned);
+
+    if (!parsed.mcq || !parsed.codeProblem) return null;
+
+    return {
+      mcq: parsed.mcq,
+      codeProblem: parsed.codeProblem,
+    };
+  } catch (error) {
+    console.error("Test parsing failed:", error);
+    return null;
+  }
+}
