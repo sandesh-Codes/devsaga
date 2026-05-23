@@ -121,3 +121,28 @@ export function parseTestResponse(text) {
     return null;
   }
 }
+
+export function parseReviewResponse(text) {
+  try {
+    let cleaned = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
+
+    const firstBrace = cleaned.indexOf("{");
+    const lastBrace = cleaned.lastIndexOf("}");
+    cleaned = cleaned.slice(firstBrace, lastBrace + 1);
+
+    const parsed = JSON.parse(cleaned);
+
+    if (!parsed.feedback || parsed.score === undefined) return null;
+
+    return {
+      feedback: parsed.feedback,
+      score: parsed.score,
+    };
+  } catch (error) {
+    console.error("Review parsing failed:", error);
+    return null;
+  }
+}

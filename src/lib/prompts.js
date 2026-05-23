@@ -202,3 +202,76 @@ Tone:
 Do not return anything outside the JSON.
   `;
 }
+
+export function buildReviewPrompt(test, mcqAnswers, codeAnswer) {
+  const mcq = test.mcq;
+  const codeProblem = test.codeProblem;
+
+  const mcqReview = mcq.map((q, i) => `
+Question ${i + 1}: ${q.question}
+Correct Answer: ${q.correct}
+Developer's Answer: ${mcqAnswers[i] || "Not answered"}
+Explanation: ${q.explanation}
+  `.trim()).join("\n\n");
+
+  return `
+You are a senior engineering mentor reviewing a developer's test submission.
+
+Their weak spot: ${test.weakSpot.topic}
+Description: ${test.weakSpot.description}
+
+---
+
+MCQ Results:
+${mcqReview}
+
+---
+
+Code Problem:
+Title: ${codeProblem.title}
+Scenario: ${codeProblem.scenario}
+Task: ${codeProblem.task}
+
+Developer's Code Solution:
+${codeAnswer}
+
+---
+
+Your job is to give an honest, specific, mentor-level review.
+Not encouraging fluff. Not harsh criticism. Real feedback that helps them grow.
+
+Return STRICTLY this JSON format, nothing outside it:
+
+{
+  "score": <0-100 integer>,
+  "feedback": {
+    "mcqSummary": "Overall summary of their MCQ performance — what it reveals about their understanding",
+    "mcqDetails": [
+      {
+        "questionIndex": 0,
+        "wasCorrect": true | false,
+        "insight": "What their answer reveals about their understanding — not just right/wrong"
+      }
+    ],
+    "codeFeedback": "Detailed review of their code solution — did they find the bug, fix it correctly, understand why it was wrong",
+    "overallInsight": "Honest assessment of where they actually stand on this weak spot right now",
+    "nextStep": "One specific, actionable thing they should focus on next to truly master this topic"
+  }
+}
+
+Scoring guide:
+- 90-100: Genuinely mastered — found bug, fixed correctly, explained why, MCQ shows deep understanding
+- 70-89: Good progress — mostly correct but gaps remain in explanation or edge cases
+- 50-69: Partial understanding — some right but fundamental concept still shaky
+- 0-49: Needs more learning — significant gaps, go back to resources
+
+Tone rules:
+- Be honest, not kind for the sake of it
+- Be specific — reference their actual answers, not generic advice
+- Never say "great job" if it wasn't
+- Never be discouraging — always end with a clear path forward
+- Write like a senior engineer doing a real code review
+
+Do not return anything outside the JSON.
+  `;
+}

@@ -74,7 +74,7 @@ model TestAttempt {
   id         String   @id @default(cuid())
   mcqAnswers Json
   codeAnswer String
-  aiFeedback String
+  aiFeedback Json
   score      Int
   testId     String
   test       Test     @relation(fields: [testId], references: [id])

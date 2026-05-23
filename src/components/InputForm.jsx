@@ -124,7 +124,7 @@ export default function InputForm({ onSubmit, loading }) {
             Analyzing...
           </span>
         ) : (
-          "⚡ Analyze with Elva"
+          "Debug!"
         )}
       </button>
  
