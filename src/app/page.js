@@ -5,16 +5,24 @@ import OutputPanel from "@/components/OutputPanel";
 import DebugHistory from "@/components/DebugHistory";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import LandingPage from "@/components/LandingPage";
 
 export default function Home() {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [activeNav, setActiveNav] = useState("debug");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activePanel, setActivePanel] = useState("input"); // mobile panel toggle
+
+     if (status === "unauthenticated") return <LandingPage />;
+  if (status === "loading") return (
+    <div className="flex h-screen items-center justify-center bg-[#0c0b09]">
+      <div className="w-5 h-5 rounded-full border-2 border-[#c9a84c] border-t-transparent animate-spin" />
+    </div>
+  );
 
   async function handleSubmit(formData) {
     setLoading(true);
@@ -45,7 +53,10 @@ export default function Home() {
     setActivePanel("input");
   }
 
+
+
   return (
+    
     <div className="flex h-screen bg-[#07070f] overflow-hidden">
 
       {/* ── MOBILE SIDEBAR OVERLAY ── */}
