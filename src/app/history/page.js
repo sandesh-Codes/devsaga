@@ -1,16 +1,21 @@
 "use client";
- 
+
 import { useEffect, useState } from "react";
 import { useSession, signIn } from "next-auth/react";
+import Topbar from "@/components/layout/Topbar";
 import Link from "next/link";
- 
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+
 const CATEGORY_COLORS = {
-  Bug:                    { bg: "bg-[#f87171]/10", text: "text-[#f87171]", dot: "#f87171" },
-  "Unexpected Behaviour": { bg: "bg-[#fb923c]/10", text: "text-[#fb923c]", dot: "#fb923c" },
-  Performance:            { bg: "bg-[#60a5fa]/10", text: "text-[#60a5fa]", dot: "#60a5fa" },
-  "API Issue":            { bg: "bg-[#a78bfa]/10", text: "text-[#a78bfa]", dot: "#a78bfa" },
+  "Bug":                  { bg: "rgba(248,113,113,0.08)",  text: "#f87171", dot: "#f87171"  },
+  "Unexpected Behaviour": { bg: "rgba(251,146,60,0.08)",   text: "#fb923c", dot: "#fb923c"  },
+  "Performance":          { bg: "rgba(126,200,160,0.08)",  text: "#7ec8a0", dot: "#7ec8a0"  },
+  "API Issue":            { bg: "rgba(167,139,250,0.08)",  text: "#a78bfa", dot: "#a78bfa"  },
 };
- 
+
+const DEFAULT_COLOR = CATEGORY_COLORS["Bug"];
+
 function timeAgo(dateStr) {
   const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
   if (diff < 60)         return "just now";
@@ -19,7 +24,17 @@ function timeAgo(dateStr) {
   if (diff < 86400 * 7)  return `${Math.floor(diff / 86400)}d ago`;
   return new Date(dateStr).toLocaleDateString();
 }
- 
+
+// ── Sub-components ─────────────────────────────────────────────────────────
+
+function FieldLabel({ children }) {
+  return (
+    <p className="text-[10px] tracking-widest font-code mb-2" style={{ color: "var(--ds-faint)" }}>
+      {children}
+    </p>
+  );
+}
+
 function ExpandIcon({ open }) {
   return (
     <svg
@@ -33,222 +48,291 @@ function ExpandIcon({ open }) {
     </svg>
   );
 }
- 
+
+// ── Session card ───────────────────────────────────────────────────────────
+
 function SessionCard({ item }) {
-  const [open, setOpen] = useState(false);
-  const colors = CATEGORY_COLORS[item.category] || CATEGORY_COLORS["Bug"];
-  const response = item.response || {};
- 
+  const [open, setOpen]   = useState(false);
+  const colors            = CATEGORY_COLORS[item.category] || DEFAULT_COLOR;
+  const response          = item.response || {};
+
   return (
-    <div className={`rounded-xl border transition-all duration-200 overflow-hidden ${
-      open ? "border-[#7c6af7]/30 bg-[#0d0d1a]" : "border-[#1e1e30] bg-[#0a0a14] hover:border-[#2a2a40]"
-    }`}>
- 
-      {/* Header row — always visible */}
+    <div
+      className="rounded-xl overflow-hidden transition-all duration-200"
+      style={{
+        background: open ? "var(--ds-surface)" : "#0f0e0c",
+        border:     open
+          ? "1px solid rgba(201,168,76,0.15)"
+          : "1px solid var(--ds-border)",
+      }}
+    >
+      {/* Header — always visible */}
       <button
         onClick={() => setOpen(!open)}
         className="w-full text-left px-5 py-4 flex items-start gap-4 group"
       >
-        {/* Color dot */}
-        <span className="mt-1.5 w-2 h-2 rounded-full shrink-0" style={{ background: colors.dot }} />
- 
+        {/* Category dot */}
+        <span
+          className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+          style={{ background: colors.dot }}
+        />
+
         <div className="flex-1 min-w-0">
-          {/* Error message */}
-          <p className="text-[13.5px] text-[#e8e8f0] leading-snug mb-2 truncate font-mono">
+          {/* Error preview */}
+          <p
+            className="text-[13.5px] leading-snug mb-2 truncate font-code"
+            style={{ color: "var(--ds-text)" }}
+          >
             {item.error || "Untitled session"}
           </p>
- 
-          {/* Meta */}
+
+          {/* Meta row */}
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${colors.bg} ${colors.text}`}>
-              {item.category || "Bug"}
-            </span>
+            {item.category && (
+              <span
+                className="text-[11px] font-code px-2 py-0.5 rounded-full"
+                style={{ background: colors.bg, color: colors.text }}
+              >
+                {item.category}
+              </span>
+            )}
+            {item.weakArea && (
+              <span
+                className="text-[11px] font-code px-2 py-0.5 rounded-full"
+                style={{
+                  background: "rgba(201,168,76,0.06)",
+                  border:     "1px solid rgba(201,168,76,0.15)",
+                  color:      "var(--ds-amber)",
+                }}
+              >
+                {item.weakArea}
+              </span>
+            )}
             {item.context && (
-              <span className="text-[11px] text-[#4a4a65] font-mono truncate max-w-[200px]">
+              <span
+                className="text-[11px] font-code truncate max-w-[180px]"
+                style={{ color: "var(--ds-subtle)" }}
+              >
                 {item.context.slice(0, 40)}{item.context.length > 40 ? "…" : ""}
               </span>
             )}
-            <span className="text-[11px] text-[#2a2a40] ml-auto shrink-0">
+            <span
+              className="text-[11px] font-code ml-auto flex-shrink-0"
+              style={{ color: "var(--ds-faint)" }}
+            >
               {item.createdAt ? timeAgo(item.createdAt) : ""}
             </span>
           </div>
         </div>
- 
+
         {/* Expand icon */}
-        <span className="text-[#4a4a65] group-hover:text-[#7c6af7] transition-colors mt-0.5 shrink-0">
+        <span
+          className="mt-0.5 flex-shrink-0 transition-colors"
+          style={{ color: open ? "var(--ds-amber)" : "var(--ds-faint)" }}
+        >
           <ExpandIcon open={open} />
         </span>
       </button>
- 
+
       {/* Expanded content */}
       {open && (
-        <div className="border-t border-[#1e1e30] px-5 py-4 space-y-4">
- 
-          {/* Code snippet */}
+        <div
+          className="px-5 py-4 space-y-5"
+          style={{ borderTop: "1px solid var(--ds-border)" }}
+        >
+          {/* Code */}
           {item.code && (
             <div>
-              <p className="text-[10px] tracking-widest text-[#4a4a65] font-mono mb-2">CODE</p>
-              <pre className="text-[12px] text-[#a0a0b8] font-mono bg-[#07070f] border border-[#1e1e30] rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap break-words">
+              <FieldLabel>CODE</FieldLabel>
+              <pre
+                className="text-[12px] font-code rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap break-words"
+                style={{
+                  color:      "var(--ds-muted)",
+                  background: "var(--ds-bg)",
+                  border:     "1px solid var(--ds-border)",
+                }}
+              >
                 {item.code.slice(0, 600)}{item.code.length > 600 ? "\n…" : ""}
               </pre>
             </div>
           )}
- 
+
           {/* Root cause */}
           {response.rootCause && (
             <div>
-              <p className="text-[10px] tracking-widest text-[#4a4a65] font-mono mb-2">ROOT CAUSE</p>
-              <p className="text-[13px] text-[#c8c8d8] leading-relaxed">{response.rootCause}</p>
+              <FieldLabel>ROOT CAUSE</FieldLabel>
+              <p className="text-[13px] leading-relaxed" style={{ color: "#d4cfc4" }}>
+                {response.rootCause}
+              </p>
             </div>
           )}
- 
-          {/* Fix */}
-          {response.fix && (
-            <div>
-              <p className="text-[10px] tracking-widest text-[#4a4a65] font-mono mb-2">FIX</p>
-              <p className="text-[13px] text-[#c8c8d8] leading-relaxed">{response.fix}</p>
-            </div>
-          )}
- 
+
           {/* Fixed code */}
           {response.fixedCode && (
             <div>
-              <p className="text-[10px] tracking-widest text-[#4a4a65] font-mono mb-2">FIXED CODE</p>
-              <pre className="text-[12px] text-[#7c6af7] font-mono bg-[#07070f] border border-[#7c6af7]/20 rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap break-words">
+              <FieldLabel>FIXED CODE</FieldLabel>
+              <pre
+                className="text-[12px] font-code rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap break-words"
+                style={{
+                  color:      "var(--ds-amber)",
+                  background: "var(--ds-bg)",
+                  border:     "1px solid rgba(201,168,76,0.12)",
+                }}
+              >
                 {response.fixedCode}
               </pre>
             </div>
           )}
- 
+
           {/* Explanation */}
           {response.explanation && (
             <div>
-              <p className="text-[10px] tracking-widest text-[#4a4a65] font-mono mb-2">EXPLANATION</p>
-              <p className="text-[13px] text-[#c8c8d8] leading-relaxed">{response.explanation}</p>
+              <FieldLabel>EXPLANATION</FieldLabel>
+              <p className="text-[13px] leading-relaxed" style={{ color: "#d4cfc4" }}>
+                {response.explanation}
+              </p>
             </div>
           )}
- 
-          {/* Tips */}
-          {response.tips?.length > 0 && (
+
+          {/* Mistakes */}
+          {response.mistakes?.length > 0 && (
             <div>
-              <p className="text-[10px] tracking-widest text-[#4a4a65] font-mono mb-2">TIPS</p>
+              <FieldLabel>MISTAKES</FieldLabel>
               <ul className="space-y-1.5">
-                {response.tips.map((tip, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[13px] text-[#c8c8d8]">
-                    <span className="text-[#7c6af7] mt-0.5 shrink-0">›</span>
-                    {tip}
+                {response.mistakes.map((m, i) => (
+                  <li key={i} className="flex items-start gap-2 text-[13px]" style={{ color: "#d4cfc4" }}>
+                    <span className="flex-shrink-0 mt-0.5" style={{ color: "var(--ds-orange)" }}>⚠</span>
+                    {m}
                   </li>
                 ))}
               </ul>
             </div>
           )}
- 
         </div>
       )}
     </div>
   );
 }
- 
+
+// ── Loading skeleton ───────────────────────────────────────────────────────
+
+function LoadingSkeleton() {
+  return (
+    <div className="space-y-3">
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={i}
+          className="h-16 rounded-xl animate-pulse"
+          style={{ background: "var(--ds-surface)", border: "1px solid var(--ds-border)" }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// ── Unauthenticated state ──────────────────────────────────────────────────
+
+function UnauthenticatedState() {
+  return (
+    <div
+      className="min-h-screen flex items-center justify-center p-4"
+      style={{ background: "var(--ds-bg)" }}
+    >
+      <div className="text-center space-y-4">
+        <p className="text-3xl">🔒</p>
+        <p className="font-medium" style={{ color: "var(--ds-text)" }}>
+          Sign in to view your history
+        </p>
+        <p className="text-sm" style={{ color: "var(--ds-subtle)" }}>
+          Your debug sessions are saved per account
+        </p>
+        <button
+          onClick={() => signIn()}
+          className="mt-2 px-5 py-2 text-sm rounded-lg font-semibold transition-colors"
+          style={{ background: "var(--ds-amber)", color: "#0c0b09" }}
+        >
+          Sign in
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ── Main page ──────────────────────────────────────────────────────────────
+
 export default function HistoryPage() {
   const { data: session, status } = useSession();
-  const [history, setHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
- 
+  const [history, setHistory]     = useState([]);
+  const [loading, setLoading]     = useState(true);
+
   useEffect(() => {
     if (status === "authenticated") {
       fetch("/api/history")
-        .then((r) => r.json())
-        .then((data) => setHistory(Array.isArray(data) ? data : []))
+        .then(r => r.json())
+        .then(data => setHistory(Array.isArray(data) ? data : []))
         .catch(console.error)
         .finally(() => setLoading(false));
     } else if (status === "unauthenticated") {
       setLoading(false);
     }
   }, [status]);
- 
-  // Not logged in
-  if (status === "unauthenticated") {
-    return (
-      <div className="min-h-screen bg-[#07070f] flex items-center justify-center p-4"
-        style={{ fontFamily: "'Outfit', sans-serif" }}>
-        <div className="text-center space-y-4">
-          <p className="text-3xl">🔒</p>
-          <p className="text-[#e8e8f0] font-medium">Sign in to view your history</p>
-          <p className="text-sm text-[#4a4a65]">Your debug sessions are saved per account</p>
-          <button
-            onClick={() => signIn()}
-            className="mt-2 px-5 py-2 bg-[#7c6af7] hover:bg-[#6a59e0] text-white text-sm rounded-lg transition-colors"
-          >
-            Sign in
-          </button>
-        </div>
-      </div>
-    );
-  }
- 
+
+  if (status === "unauthenticated") return <UnauthenticatedState />;
+
   return (
-    <div className="min-h-screen bg-[#07070f] text-white"
-      style={{ fontFamily: "'Outfit', sans-serif" }}>
- 
-      {/* Top bar */}
-      <div className="border-b border-[#1e1e30] px-6 py-4 flex items-center gap-4">
-        <Link
-          href="/"
-          className="text-[#4a4a65] hover:text-[#e8e8f0] transition-colors text-sm font-mono flex items-center gap-1.5"
-        >
-          ← Back
-        </Link>
-        <div className="h-4 w-px bg-[#1e1e30]" />
-        <p className="text-[10px] tracking-widest text-[#4a4a65] font-mono">DEBUG HISTORY</p>
-      </div>
- 
-      <div className="max-w-3xl mx-auto px-6 py-8">
- 
+    <div className="min-h-screen" style={{ background: "var(--ds-bg)" }}>
+
+      <Topbar session={session} activePage="history" />
+
+      <div className="max-w-3xl mx-auto px-6 py-10">
+
         {/* Heading */}
         <div className="mb-8">
-          <h1 className="text-2xl font-semibold text-[#e8e8f0] tracking-tight mb-1">
+          <h1
+            className="font-display text-2xl font-bold mb-1 tracking-tight"
+            style={{ color: "var(--ds-text)" }}
+          >
             Your Sessions
           </h1>
-          <p className="text-sm text-[#4a4a65]">
-            Last {history.length} debug sessions — click any to expand
+          <p className="text-sm" style={{ color: "var(--ds-subtle)" }}>
+            {history.length} debug session{history.length !== 1 ? "s" : ""} — click any to expand
           </p>
         </div>
- 
+
         {/* Loading */}
-        {loading && (
-          <div className="space-y-3">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-16 rounded-xl bg-[#0d0d1a] border border-[#1e1e30] animate-pulse" />
-            ))}
-          </div>
-        )}
- 
+        {loading && <LoadingSkeleton />}
+
         {/* Empty */}
         {!loading && history.length === 0 && (
           <div className="text-center py-20 space-y-3">
             <p className="text-4xl">🔍</p>
-            <p className="text-[#e8e8f0] font-medium">No sessions yet</p>
-            <p className="text-sm text-[#4a4a65]">Debug something on the homepage to get started</p>
+            <p className="font-medium" style={{ color: "var(--ds-text)" }}>No sessions yet</p>
+            <p className="text-sm" style={{ color: "var(--ds-subtle)" }}>
+              Debug something to get started
+            </p>
             <Link
               href="/"
-              className="inline-block mt-2 px-5 py-2 border border-[#7c6af7]/40 text-[#7c6af7] text-sm rounded-lg hover:bg-[#7c6af7]/10 transition-colors"
+              className="inline-block mt-2 px-5 py-2 text-sm rounded-lg font-code transition-colors"
+              style={{
+                border: "1px solid rgba(201,168,76,0.3)",
+                color:  "var(--ds-amber)",
+              }}
             >
               Start debugging
             </Link>
           </div>
         )}
- 
+
         {/* Session list */}
         {!loading && history.length > 0 && (
           <div className="space-y-3">
-            {history.map((item) => (
+            {history.map(item => (
               <SessionCard key={item.id} item={item} />
             ))}
           </div>
         )}
- 
+
       </div>
     </div>
   );
 }
- 
