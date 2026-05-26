@@ -73,7 +73,7 @@ function SessionCard({ item }) {
       >
         {/* Category dot */}
         <span
-          className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+          className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
           style={{ background: colors.dot }}
         />
 
@@ -110,14 +110,14 @@ function SessionCard({ item }) {
             )}
             {item.context && (
               <span
-                className="text-[11px] font-code truncate max-w-[180px]"
+                className="text-[11px] font-code truncate max-w-45"
                 style={{ color: "var(--ds-subtle)" }}
               >
                 {item.context.slice(0, 40)}{item.context.length > 40 ? "…" : ""}
               </span>
             )}
             <span
-              className="text-[11px] font-code ml-auto flex-shrink-0"
+              className="text-[11px] font-code ml-auto shrink-0"
               style={{ color: "var(--ds-faint)" }}
             >
               {item.createdAt ? timeAgo(item.createdAt) : ""}
@@ -127,7 +127,7 @@ function SessionCard({ item }) {
 
         {/* Expand icon */}
         <span
-          className="mt-0.5 flex-shrink-0 transition-colors"
+          className="mt-0.5 shrink-0 transition-colors"
           style={{ color: open ? "var(--ds-amber)" : "var(--ds-faint)" }}
         >
           <ExpandIcon open={open} />
@@ -145,7 +145,7 @@ function SessionCard({ item }) {
             <div>
               <FieldLabel>CODE</FieldLabel>
               <pre
-                className="text-[12px] font-code rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap break-words"
+                className="text-[12px] font-code rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap wrap-break-word"
                 style={{
                   color:      "var(--ds-muted)",
                   background: "var(--ds-bg)",
@@ -172,7 +172,7 @@ function SessionCard({ item }) {
             <div>
               <FieldLabel>FIXED CODE</FieldLabel>
               <pre
-                className="text-[12px] font-code rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap break-words"
+                className="text-[12px] font-code rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap wrap-break-word"
                 style={{
                   color:      "var(--ds-amber)",
                   background: "var(--ds-bg)",
@@ -201,7 +201,7 @@ function SessionCard({ item }) {
               <ul className="space-y-1.5">
                 {response.mistakes.map((m, i) => (
                   <li key={i} className="flex items-start gap-2 text-[13px]" style={{ color: "#d4cfc4" }}>
-                    <span className="flex-shrink-0 mt-0.5" style={{ color: "var(--ds-orange)" }}>⚠</span>
+                    <span className="shrink-0 mt-0.5" style={{ color: "var(--ds-orange)" }}>⚠</span>
                     {m}
                   </li>
                 ))}

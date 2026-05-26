@@ -52,7 +52,7 @@ function UserMenu({ session }) {
           </div>
         )}
         <span
-          className="text-sm max-w-[120px] truncate"
+          className="text-sm max-w-30 truncate"
           style={{ color: "var(--ds-muted)" }}
         >
           {session.user.name}

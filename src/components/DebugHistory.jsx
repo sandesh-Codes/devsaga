@@ -63,7 +63,7 @@ export default function DebugHistory({ onSelect }) {
               className={`w-full text-left px-3 py-2.5 rounded-lg border transition-all cursor-pointer group ${
                 isActive
                   ? "bg-[#7c6af7]/08 border-[#7c6af7]/25"
-                  : "border-transparent hover:bg-white/[0.03] hover:border-[#1e1e30]"
+                  : "border-transparent hover:bg-white/3 hover:border-[#1e1e30]"
               }`}
             >
               {/* Error preview */}

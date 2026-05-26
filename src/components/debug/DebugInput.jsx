@@ -41,7 +41,7 @@ function SimplerToggle({ value, onChange }) {
       <button
         type="button"
         onClick={() => onChange(!value)}
-        className="relative w-9 h-5 rounded-full transition-all cursor-pointer flex-shrink-0"
+        className="relative w-9 h-5 rounded-full transition-all cursor-pointer shrink-0"
         style={{ background: value ? "var(--ds-amber)" : "rgba(240,236,224,0.08)" }}
         aria-label="Toggle simpler explanation"
       >

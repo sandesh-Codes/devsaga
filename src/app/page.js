@@ -8,8 +8,6 @@ import DebugInput   from "@/components/debug/DebugInput";
 import DebugOutput  from "@/components/debug/DebugOutput";
 import EmptyState   from "@/components/debug/EmptyState";
 
-// ── Loading screen ─────────────────────────────────────────────────────────
-
 function LoadingScreen() {
   return (
     <div className="flex h-screen items-center justify-center" style={{ background: "var(--ds-bg)" }}>
@@ -21,7 +19,6 @@ function LoadingScreen() {
   );
 }
 
-// ── Main page ──────────────────────────────────────────────────────────────
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -30,7 +27,6 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error,   setError]   = useState("");
 
-  // Auth guards
   if (status === "unauthenticated") return <LandingPage />;
   if (status === "loading")         return <LoadingScreen />;
 
@@ -70,7 +66,6 @@ export default function Home() {
 
       <main className="px-6 md:px-10 py-10 pb-24">
 
-        {/* Input — always visible */}
         <DebugInput
           onSubmit={handleSubmit}
           loading={loading}
@@ -78,7 +73,6 @@ export default function Home() {
           hasResult={!!result}
         />
 
-        {/* Error message */}
         {error && (
           <div
             className="w-full max-w-2xl mx-auto mt-4 p-3 rounded-lg text-sm"
@@ -92,10 +86,8 @@ export default function Home() {
           </div>
         )}
 
-        {/* Empty state */}
         {showEmpty && <EmptyState session={session} />}
 
-        {/* Output — flows in below input after submit */}
         <DebugOutput data={result} loading={loading} />
 
       </main>

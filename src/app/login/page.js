@@ -48,7 +48,7 @@ function SignInButton({ provider, label, icon, loading, onClick }) {
         e.currentTarget.style.color = "var(--ds-muted)";
       }}
     >
-      <span className="w-5 h-5 flex items-center justify-center flex-shrink-0">
+      <span className="w-5 h-5 flex items-center justify-center shrink-0">
         {loading ? (
           <span
             className="w-4 h-4 rounded-full border-2 animate-spin"

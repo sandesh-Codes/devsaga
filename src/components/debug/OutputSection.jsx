@@ -18,7 +18,7 @@ export default function OutputSection({ section, value, index }) {
         style={{ borderBottom: "1px solid var(--ds-border)" }}
       >
         <span
-          className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+          className="w-1.5 h-1.5 rounded-full shrink-0"
           style={{ background: section.dot }}
         />
         <span
@@ -44,7 +44,7 @@ export default function OutputSection({ section, value, index }) {
             {value.map((step, i) => (
               <li key={i} className="flex gap-3 items-start">
                 <span
-                  className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-code flex-shrink-0 mt-0.5"
+                  className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-code shrink-0 mt-0.5"
                   style={{
                     background: "rgba(201,168,76,0.08)",
                     border:     "1px solid rgba(201,168,76,0.2)",
@@ -63,7 +63,7 @@ export default function OutputSection({ section, value, index }) {
 
         {section.type === "code" && (
           <pre
-            className="text-[12px] font-code overflow-x-auto leading-relaxed whitespace-pre-wrap break-words"
+            className="text-[12px] font-code overflow-x-auto leading-relaxed whitespace-pre-wrap wrap-break-word"
             style={{ color: "#d4cfc4" }}
           >
             {value}
@@ -78,7 +78,7 @@ export default function OutputSection({ section, value, index }) {
                 className="flex items-start gap-2.5 text-[13px]"
                 style={{ color: "#d4cfc4" }}
               >
-                <span className="flex-shrink-0 mt-0.5" style={{ color: "var(--ds-orange)" }}>
+                <span className="shrink-0 mt-0.5" style={{ color: "var(--ds-orange)" }}>
                   ⚠
                 </span>
                 {mistake}
