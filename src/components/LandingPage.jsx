@@ -262,7 +262,7 @@ export default function LandingPage() {
                   { label: "AI Review", desc: "Honest mentor feedback — your gaps, your next step" },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-3">
-                    <span className="mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#c9a84c" }} />
+                    <span className="mt-1 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "#c9a84c" }} />
                     <div>
                       <p className="text-sm font-medium" style={{ color: "#f0ece0" }}>{item.label}</p>
                       <p className="text-xs mt-0.5" style={{ color: "rgba(240,236,224,0.35)" }}>{item.desc}</p>
@@ -345,7 +345,7 @@ export default function LandingPage() {
                 <ul className="space-y-2 mb-6">
                   {p.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-xs" style={{ color: "rgba(240,236,224,0.5)" }}>
-                      <span style={{ color: p.highlight ? "#c9a84c" : "#7ec8a0" }} className="mt-0.5 flex-shrink-0">✓</span>
+                      <span style={{ color: p.highlight ? "#c9a84c" : "#7ec8a0" }} className="mt-0.5 shrink-0">✓</span>
                       {f}
                     </li>
                   ))}

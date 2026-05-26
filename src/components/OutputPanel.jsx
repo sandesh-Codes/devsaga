@@ -75,7 +75,7 @@ export default function OutputPanel({ data }) {
             {/* Card header */}
             <div className={`px-4 py-3 border-b ${card.border} ${card.bg} flex items-center gap-2.5`}>
               <span
-                className="w-2 h-2 rounded-full flex-shrink-0"
+                className="w-2 h-2 rounded-full shrink-0"
                 style={{ background: card.dot, boxShadow: `0 0 6px ${card.dot}` }}
               />
               <span className={`text-xs font-semibold tracking-wide ${card.color}`}>
@@ -94,7 +94,7 @@ export default function OutputPanel({ data }) {
                 <ol className="space-y-2.5">
                   {value.map((step, i) => (
                     <li key={i} className="flex gap-3 items-start">
-                      <span className="w-5 h-5 rounded-full bg-[#34d399]/10 border border-[#34d399]/30 text-[#34d399] text-[10px] font-mono flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="w-5 h-5 rounded-full bg-[#34d399]/10 border border-[#34d399]/30 text-[#34d399] text-[10px] font-mono flex items-center justify-center shrink-0 mt-0.5">
                         {i + 1}
                       </span>
                       <span className="text-[13px] text-[#c4c4d8] leading-relaxed">{step}</span>
@@ -118,7 +118,7 @@ export default function OutputPanel({ data }) {
                         i < value.length - 1 ? "pb-2 border-b border-[#1e1e30]" : ""
                       }`}
                     >
-                      <span className="text-[#fb923c] flex-shrink-0 mt-0.5">⚠</span>
+                      <span className="text-[#fb923c] shrink-0 mt-0.5">⚠</span>
                       {mistake}
                     </li>
                   ))}

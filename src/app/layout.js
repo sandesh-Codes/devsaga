@@ -1,9 +1,8 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Playfair_Display, Outfit, JetBrains_Mono } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Providers from "./providers";
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,22 +14,49 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["700", "900"],
+  style: ["normal", "italic"],
+});
+
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+});
+
 export const metadata = {
   title: "DevSaga",
-  description: "AI-powered debugging assistant that helps you debug errors and tracks your errors over time, identifies your weak spots, and recommends free resources to help you improve.",
+  description:
+    "AI-powered debugging companion that learns from your mistakes, identifies your weak spots, and helps you master them.",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`
+        ${geistSans.variable}
+        ${geistMono.variable}
+        ${playfair.variable}
+        ${outfit.variable}
+        ${jetbrainsMono.variable}
+        h-full antialiased
+      `}
     >
       <body className="min-h-full flex flex-col">
         <Providers>
-        <TooltipProvider>
-        {children}
-        </TooltipProvider>
+          <TooltipProvider>
+            {children}
+          </TooltipProvider>
         </Providers>
         <SpeedInsights />
       </body>

@@ -15,7 +15,7 @@ export default function Home() {
   const [error, setError] = useState("");
   const [activeNav, setActiveNav] = useState("debug");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activePanel, setActivePanel] = useState("input"); // mobile panel toggle
+  const [activePanel, setActivePanel] = useState("input");
 
      if (status === "unauthenticated") return <LandingPage />;
   if (status === "loading") return (
@@ -28,7 +28,6 @@ export default function Home() {
     setLoading(true);
     setResult(null);
     setError("");
-    // on mobile, switch to output panel when submit starts
     setActivePanel("output");
     try {
       const res = await fetch("/api/debug", {
@@ -59,7 +58,6 @@ export default function Home() {
     
     <div className="flex h-screen bg-[#07070f] overflow-hidden">
 
-      {/* ── MOBILE SIDEBAR OVERLAY ── */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/60 z-20 md:hidden"
@@ -67,18 +65,16 @@ export default function Home() {
         />
       )}
 
-      {/* ── SIDEBAR ── */}
       <aside className={`
         fixed md:static z-30 h-full
-        w-64 min-w-[240px] bg-[#0d0d1a] border-r border-[#1e1e30] flex flex-col
+        w-64 min-w-60 bg-[#0d0d1a] border-r border-[#1e1e30] flex flex-col
         transition-transform duration-300 ease-in-out
         ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
       `}>
 
-        {/* Logo */}
         <div className="p-5 border-b border-[#1e1e30] flex items-center justify-between">
           <img src="/devsaga-logo.svg" alt="DevSaga" className="h-16 w-auto" />
-          {/* Close button mobile */}
+          
           <button
             onClick={() => setSidebarOpen(false)}
             className="md:hidden text-[#4a4a65] hover:text-white transition-colors p-1"
@@ -125,10 +121,10 @@ export default function Home() {
         <img
           src={session.user.image}
           alt={session.user.name}
-          className="w-8 h-8 rounded-full flex-shrink-0 object-cover"
+          className="w-8 h-8 rounded-full shrink-0 object-cover"
         />
       ) : (
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#7c6af7] to-[#60a5fa] flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+        <div className="w-8 h-8 rounded-full bg-linear-to-br from-[#7c6af7] to-[#60a5fa] flex items-center justify-center text-white text-xs font-bold shrink-0">
           {session.user.name?.charAt(0).toUpperCase()}
         </div>
       )}
@@ -139,7 +135,7 @@ export default function Home() {
     </div>
   ) : (
     <div className="flex items-center gap-3 p-2 rounded-lg">
-      <div className="w-8 h-8 rounded-full bg-[#1e1e30] flex-shrink-0" />
+      <div className="w-8 h-8 rounded-full bg-[#1e1e30] shrink-0" />
       <div className="min-w-0">
         <p className="text-sm text-[#4a4a65] truncate">Not signed in</p>
       </div>
@@ -152,12 +148,12 @@ export default function Home() {
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
 
         {/* Topbar */}
-        <div className="h-14 border-b border-[#1e1e30] flex items-center px-4 gap-3 flex-shrink-0">
+        <div className="h-14 border-b border-[#1e1e30] flex items-center px-4 gap-3 shrink-0">
 
           {/* Hamburger — mobile only */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="md:hidden text-[#4a4a65] hover:text-white transition-colors flex-shrink-0"
+            className="md:hidden text-[#4a4a65] hover:text-white transition-colors shrink-0"
           >
             <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -166,7 +162,7 @@ export default function Home() {
 
           <h1 className="font-serif text-base md:text-lg text-white truncate">Debug Session</h1>
 
-          <div className="ml-auto flex items-center gap-2 flex-shrink-0">
+          <div className="ml-auto flex items-center gap-2 shrink-0">
             {/* Hide Clear on mobile */}
             <button
               onClick={handleClear}
@@ -176,7 +172,7 @@ export default function Home() {
             </button>
             <button
               onClick={handleClear}
-              className="px-3 py-1.5 text-xs md:text-sm text-white bg-gradient-to-r from-[#7c6af7] to-[#60a5fa] rounded-lg shadow-[0_0_20px_rgba(124,106,247,0.3)] hover:shadow-[0_0_28px_rgba(124,106,247,0.5)] transition-all cursor-pointer"
+              className="px-3 py-1.5 text-xs md:text-sm text-white bg-linear-to-r from-[#7c6af7] to-[#60a5fa] rounded-lg shadow-[0_0_20px_rgba(124,106,247,0.3)] hover:shadow-[0_0_28px_rgba(124,106,247,0.5)] transition-all cursor-pointer"
             >
               ⚡ <span className="hidden sm:inline">New Debug</span>
             </button>
@@ -199,7 +195,7 @@ export default function Home() {
         </div>
 
         {/* ── MOBILE PANEL TABS ── */}
-        <div className="md:hidden flex border-b border-[#1e1e30] flex-shrink-0">
+        <div className="md:hidden flex border-b border-[#1e1e30] shrink-0">
           <button
             onClick={() => setActivePanel("input")}
             className={`flex-1 py-2.5 text-xs font-mono tracking-widest transition-colors ${

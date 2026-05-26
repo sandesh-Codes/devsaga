@@ -93,7 +93,7 @@ function ResourcesSection({ weakSpotId, initialResources }) {
               {r.title}
             </p>
           </div>
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             <ResourceIcon type={r.type} />
             <svg viewBox="0 0 24 24" className="w-3 h-3 text-[#2a2a40] group-hover:text-[#7c6af7] transition-colors" fill="none" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -267,7 +267,7 @@ function TestSection({ weakSpotId, initialTest }) {
 
         {/* Hint */}
         <div className="flex items-start gap-2 px-3 py-2.5 rounded-lg bg-[#fb923c]/5 border border-[#fb923c]/20">
-          <span className="text-[#fb923c] text-xs flex-shrink-0 mt-0.5">💡</span>
+          <span className="text-[#fb923c] text-xs shrink-0 mt-0.5">💡</span>
           <p className="text-[12px] text-[#fb923c]/80 leading-relaxed">{cp.hint}</p>
         </div>
 
@@ -333,7 +333,7 @@ function TestSection({ weakSpotId, initialTest }) {
               <div className="mt-3 space-y-2">
                 {fb.mcqDetails.map((d, i) => (
                   <div key={i} className="flex items-start gap-2 text-[12px]">
-                    <span className={`flex-shrink-0 mt-0.5 ${d.wasCorrect ? "text-[#34d399]" : "text-[#f87171]"}`}>
+                    <span className={`shrink-0 mt-0.5 ${d.wasCorrect ? "text-[#34d399]" : "text-[#f87171]"}`}>
                       {d.wasCorrect ? "✓" : "✗"}
                     </span>
                     <p className="text-[#6b6b8a] leading-relaxed">{d.insight}</p>
@@ -386,7 +386,7 @@ function WeakSpotCard({ spot }) {
 
       {/* Header */}
       <button onClick={() => setOpen(!open)} className="w-full text-left px-5 py-4 flex items-start gap-4 group">
-        <div className="mt-1 w-2 h-2 rounded-full flex-shrink-0 bg-gradient-to-br from-[#7c6af7] to-[#60a5fa]" />
+        <div className="mt-1 w-2 h-2 rounded-full shrink-0 bg-gradient-to-br from-[#7c6af7] to-[#60a5fa]" />
 
         <div className="flex-1 min-w-0">
           <p className="text-[14px] text-[#e8e8f0] font-medium mb-2 leading-snug">{spot.topic}</p>
@@ -409,7 +409,7 @@ function WeakSpotCard({ spot }) {
           </div>
         </div>
 
-        <span className="text-[#4a4a65] group-hover:text-[#7c6af7] transition-colors mt-0.5 flex-shrink-0">
+        <span className="text-[#4a4a65] group-hover:text-[#7c6af7] transition-colors mt-0.5 shrink-0">
           <ChevronIcon open={open} />
         </span>
       </button>

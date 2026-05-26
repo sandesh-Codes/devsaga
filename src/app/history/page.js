@@ -50,7 +50,7 @@ function SessionCard({ item }) {
         className="w-full text-left px-5 py-4 flex items-start gap-4 group"
       >
         {/* Color dot */}
-        <span className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0" style={{ background: colors.dot }} />
+        <span className="mt-1.5 w-2 h-2 rounded-full shrink-0" style={{ background: colors.dot }} />
  
         <div className="flex-1 min-w-0">
           {/* Error message */}
@@ -68,14 +68,14 @@ function SessionCard({ item }) {
                 {item.context.slice(0, 40)}{item.context.length > 40 ? "…" : ""}
               </span>
             )}
-            <span className="text-[11px] text-[#2a2a40] ml-auto flex-shrink-0">
+            <span className="text-[11px] text-[#2a2a40] ml-auto shrink-0">
               {item.createdAt ? timeAgo(item.createdAt) : ""}
             </span>
           </div>
         </div>
  
         {/* Expand icon */}
-        <span className="text-[#4a4a65] group-hover:text-[#7c6af7] transition-colors mt-0.5 flex-shrink-0">
+        <span className="text-[#4a4a65] group-hover:text-[#7c6af7] transition-colors mt-0.5 shrink-0">
           <ExpandIcon open={open} />
         </span>
       </button>
@@ -135,7 +135,7 @@ function SessionCard({ item }) {
               <ul className="space-y-1.5">
                 {response.tips.map((tip, i) => (
                   <li key={i} className="flex items-start gap-2 text-[13px] text-[#c8c8d8]">
-                    <span className="text-[#7c6af7] mt-0.5 flex-shrink-0">›</span>
+                    <span className="text-[#7c6af7] mt-0.5 shrink-0">›</span>
                     {tip}
                   </li>
                 ))}

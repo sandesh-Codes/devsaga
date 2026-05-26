@@ -92,7 +92,7 @@ export default function InputForm({ onSubmit, loading }) {
         <button
           type="button"
           onClick={() => setForm({ ...form, simpler: !form.simpler })}
-          className={`relative w-10 h-5 rounded-full transition-all cursor-pointer flex-shrink-0 ${
+          className={`relative w-10 h-5 rounded-full transition-all cursor-pointer shrink-0 ${
             form.simpler ? "bg-[#7c6af7]" : "bg-[#2a2a40]"
           }`}
         >
