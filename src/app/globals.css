@@ -141,10 +141,8 @@
   }
 
   body {
-  background: var(--ds-bg);
-  color: var(--ds-text);
-  font-family: var(--font-outfit), sans-serif;
-}
+    @apply bg-background text-foreground;
+  }
 
   html {
     @apply font-sans;
