@@ -1,12 +1,3 @@
-// ── Debug categories ───────────────────────────────────────────────────────
-
-export const CATEGORIES = [
-  "Bug",
-  "Unexpected Behaviour",
-  "Performance",
-  "API Issue",
-];
-
 // ── Output sections config ─────────────────────────────────────────────────
 
 export const OUTPUT_SECTIONS = [

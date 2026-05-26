@@ -22,7 +22,7 @@ export async function POST(req) {
   data: {
     error: body.error,
     code: body.code,
-    context: body.context,
+    category: parsed.category,
     category: body.category,
     response: parsed,
     weakArea: parsed.weakArea,

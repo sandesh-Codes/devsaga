@@ -21,6 +21,7 @@ export function parseAIResponse(text) {
       explanation: parsed.explanation || "",
       steps: Array.isArray(parsed.steps) ? parsed.steps : [],
       fixedCode: parsed.fixedCode || "",
+      category: parsed.category || "Bug",
       mistakes: Array.isArray(parsed.mistakes) ? parsed.mistakes : [],
       weakArea: parsed.weakArea || "General Programming",
     };

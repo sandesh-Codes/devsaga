@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { CATEGORIES } from "@/config/debugConstants";
 
 // ── Shared input style ─────────────────────────────────────────────────────
 
@@ -35,30 +34,6 @@ function FieldLabel({ children }) {
   );
 }
 
-function CategoryPicker({ value, onChange }) {
-  return (
-    <div className="space-y-1.5">
-      <FieldLabel>CATEGORY</FieldLabel>
-      <div className="flex flex-wrap gap-2">
-        {CATEGORIES.map(cat => (
-          <button
-            key={cat}
-            type="button"
-            onClick={() => onChange(cat)}
-            className="px-3 py-1.5 rounded-lg text-xs font-code transition-all cursor-pointer"
-            style={{
-              background: value === cat ? "rgba(201,168,76,0.10)" : "transparent",
-              border:     value === cat ? "1px solid rgba(201,168,76,0.35)" : "1px solid var(--ds-border)",
-              color:      value === cat ? "var(--ds-amber)" : "var(--ds-subtle)",
-            }}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 function SimplerToggle({ value, onChange }) {
   return (
@@ -95,7 +70,6 @@ export default function DebugInput({ onSubmit, loading, onClear, hasResult }) {
     error:    "",
     code:     "",
     context:  "",
-    category: "Bug",
     simpler:  false,
   });
 
@@ -163,12 +137,6 @@ export default function DebugInput({ onSubmit, loading, onClear, hasResult }) {
 
         {/* Category + Simpler toggle */}
         <div className="flex flex-col sm:flex-row gap-4 sm:items-end">
-          <div className="flex-1">
-            <CategoryPicker
-              value={form.category}
-              onChange={val => set("category", val)}
-            />
-          </div>
           <div className="pb-1">
             <SimplerToggle
               value={form.simpler}

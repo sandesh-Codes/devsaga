@@ -33,7 +33,8 @@ Respond STRICTLY in this JSON format, nothing outside it:
   "steps": ["Concrete step to fix", "..."],
   "fixedCode": "Complete corrected code snippet",
   "mistakes": ["Specific mistake the developer made", "..."],
-  "weakArea": "The single most specific engineering concept this developer needs to learn"
+  "weakArea": "The single most specific engineering concept this developer needs to learn",
+  "category": "Bug" | "Unexpected Behaviour" | "Performance" | "API Issue"
 }
 
 For weakArea:
@@ -42,7 +43,13 @@ For weakArea:
 - Not "CSS" but "CSS flexbox alignment"
 - It should reflect exactly what concept gap caused this bug
 - 3-6 words max
-  `;
+
+Classify the error into exactly one category:
+- Bug: code is broken, throws error or crashes
+- Unexpected Behaviour: code runs but does something wrong
+- Performance: code is slow or inefficient
+- API Issue: external service, fetch, or network related
+`;
 }
 
 export function buildAnalysisPrompt(sessions) {
