@@ -23,7 +23,6 @@ export async function POST(req) {
     error: body.error,
     code: body.code,
     category: parsed.category,
-    category: body.category,
     response: parsed,
     weakArea: parsed.weakArea,
     userId: session.user.id

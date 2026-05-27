@@ -1,87 +1,116 @@
 # DevSaga
 ### *"Learning from mistakes never been so easy."*
 
-DevSaga is an AI-powered debugging companion that doesn't just fix your errors — it learns your patterns, identifies your weak spots, and helps you grow as a developer over time.
+DevSaga is an AI-powered debugging companion that doesn't just fix your errors — it tracks your patterns, identifies your weak spots, and runs you through a personalised test to make sure you actually improve over time.
 
-![Elva Banner](https://placehold.co/1200x400?text=Elva+Banner)
+**→ [Live Demo](https://devsaga-app.vercel.app)** · [GitHub](https://github.com/sandesh-Codes/devsaga)
 
 ---
 
 ## ✨ Features
 
-- **AI Debugging** — Paste your error, code, and context. Get a structured response with a simple explanation, root cause, step-by-step fix, and common related mistakes.
-- **Debugging History** — Every debug session is saved. Revisit past errors anytime.
-- **Pattern Recognition** — DevSaga learns from your debugging history and identifies recurring weak spots in your code.
-- **Personalized Insights** — Get summaries like *"You tend to struggle with state management"* based on your actual history.
-- **Resource Suggestions** — DevSaga suggests free learning resources targeted at your specific weak areas.
-- **Structured Output** — Responses are clean, organized, and easy to act on. No walls of text.
+### AI Debugging
+Paste your error, code, and context. Get a structured response with a plain-English explanation, root cause analysis, step-by-step fix, corrected code, and a list of common related mistakes — no walls of text.
+
+### Debug History
+Every session is saved to your account. Browse and expand past errors anytime to revisit what went wrong and how it was fixed.
+
+### Insights Resources & Tests (IRT)
+After enough sessions, DevSaga analyses your history and surfaces your recurring weak spots — the patterns you keep hitting. For each weak spot it:
+
+- **Identifies the gap** — a clear summary of what you're struggling with and why
+- **Curates free resources** — hand-picked articles, videos, and documentation targeted at your specific issue
+- **Generates a personalised test** — a real-world broken code problem and scenario-based MCQs built around your weak area
+- **Reviews your attempt** — honest AI mentor feedback with a score, MCQ breakdown, code review, and a concrete next step
 
 ---
 
-## 📸 Screenshots
-
-> Coming soon
-
-| Dashboard | Debug Session | History | Insights |
-|-----------|--------------|---------|----------|
-| ![Dashboard](https://placehold.co/600x400?text=Dashboard) | ![Debug](https://placehold.co/600x400?text=Debug+Session) | ![History](https://placehold.co/600x400?text=History) | ![Insights](https://placehold.co/600x400?text=Insights) |
-
----
-
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
-| Framework | [Next.js](https://nextjs.org/) |
-| Database | [Neon Postgres](https://neon.tech/) |
-| ORM | [Prisma](https://www.prisma.io/) |
-| AI | [Gemini 2.5 Flash](https://deepmind.google/technologies/gemini/) via `@google/genai` |
-| Auth | JWT + Bcrypt |
-| Styling | [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/) |
+|---|---|
+| Framework | Next.js (App Router) |
+| Database | Neon Postgres |
+| ORM | Prisma |
+| AI | Gemini 2.5 Flash (`@google/genai`) |
+| Auth | NextAuth.js — Google & GitHub OAuth |
+| Styling | Tailwind CSS + shadcn/ui |
+| Deployment | Vercel |
+
+---
+
+## Screenshots
+
+### Home Page
+![Home Page](./screenshots/home.png)
+
+### Paste error & code
+![Paste Code](./screenshots/codepaste.png)
+
+### Get fixed code & error explanation
+![Fixed Code](./screenshots/debugresponse.png)
+
+### AI determines your weak concepts from your debugging, gives you best free resources to master that weak concept & then AI generates a test personalized to your weak concept, A test based on real world scenarios & broken code
+![My Patterns](./screenshots/mypatterns.png)
+
+---
+
+Try the [live demo](https://devsaga-app.vercel.app)
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-
 - Node.js 18+
-- A [Neon](https://neon.tech/) database (free tier works)
-- A [Google AI Studio](https://aistudio.google.com/) API key (free tier works)
+- A [Neon](https://neon.tech) database (free tier works)
+- A [Google AI Studio](https://aistudio.google.com) API key (free tier works)
+- Google and/or GitHub OAuth app credentials (for auth)
 
 ### Installation
 
-1. **Clone the repository**
+**1. Clone the repository**
 ```bash
 git clone https://github.com/sandesh-Codes/devsaga.git
 cd devsaga
 ```
 
-2. **Install dependencies**
+**2. Install dependencies**
 ```bash
 npm install
 ```
 
-3. **Set up environment variables**
+**3. Set up environment variables**
 
-Create a `.env.local` file in the root directory. Use `.env.example` as a reference:
-```bash
-cp .env.example .env.local
-```
+Create a `.env.local` file in the root. You'll need:
 
-Fill in your values:
 ```env
+# Database (Neon)
+DATABASE_URL=your_pooled_connection_string
+DATABASE_URL_UNPOOLED=your_unpooled_connection_string
+SHADOW_DATABASE_URL=the_second_unpooled_branch_of_db_for_dev_migrations
+
+# AI
 GEMINI_API_KEY=your_gemini_api_key
-DATABASE_URL=your_neon_database_url
-JWT_SECRET=your_jwt_secret
+GEMINI_MODEL=any_gemini_model
+
+# Auth (NextAuth)
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_nextauth_secret
+
+# OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GITHUB_ID=your_github_id
+GITHUB_SECRET=your_github_secret
 ```
 
-4. **Set up the database**
+**4. Set up the database**
 ```bash
 npx prisma migrate dev
 ```
 
-5. **Run the development server**
+**5. Run the development server**
 ```bash
 npm run dev
 ```
@@ -90,51 +119,38 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🌐 Live Demo
-
-> Coming soon
-
----
-
 ## 📁 Project Structure
 
 ```
-devsaga/src/
+src/
 ├── app/
-│   ├── api/          # API routes
-│   ├── (auth)/       # Auth pages
-│   └── (dashboard)/  # Main app pages
-├── components/       # Reusable UI components
-├── lib/              # Utilities, Prisma client, helpers
-├── prisma/           # Schema and migrations
-└── public/           # Static assets
+│   ├── page.js              ← debug page
+│   ├── login/page.js        ← auth page
+│   ├── history/page.js      ← debug history
+│   ├── irt/page.js          ← IRT dashboard
+│   └── api/
+│       ├── debug/           ← open, saves if signed in
+│       ├── history/         ← auth gated
+│       └── irt/             ← analyze, resources, weakspots, test
+├── components/
+│   ├── LandingPage.jsx
+│   ├── layout/              ← Topbar, MobileMenu
+│   ├── debug/               ← DebugInput, DebugOutput, etc.
+│   └── irt/                 ← WeakSpotCard, TestSection, ReviewStep, etc.
+├── config/                  ← debugConstants, irtConstants
+├── lib/                     ← db, ai, prompts
+└── utils/                   ← parser
 ```
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to open an issue or submit a pull request.
-
-1. Fork the repository
-2. Create your feature branch `git checkout -b feature/your-feature`
-3. Commit your changes `git commit -m 'Add your feature'`
-4. Push to the branch `git push origin feature/your-feature`
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
 ## 👨‍💻 Author
 
 **sandesh-Codes**
+
 - GitHub: [@sandesh-Codes](https://github.com/sandesh-Codes)
+- Live: [devsaga-app.vercel.app](https://devsaga-app.vercel.app)
 
 ---
 
-<p align="center">Built with ❤️ to make debugging less painful and learning more personal.</p>
+*Built to make debugging less painful and learning more personal.*
