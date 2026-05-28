@@ -61,7 +61,7 @@ export default function TestSection({ weakSpotId, initialTest }) {
     setReview(null);
   }
 
-  // ── Idle — no test yet ───────────────────────────────────────────────────
+  // ── Idle — show start/take button ────────────────────────────────────────
 
   if (step === STEPS.IDLE) {
     return (
@@ -79,7 +79,12 @@ export default function TestSection({ weakSpotId, initialTest }) {
           e.currentTarget.style.color = "var(--ds-subtle)";
         }}
       >
-        {loading ? "Generating test…" : test ? "🧪 Retake Test" : "🧪 Take Test"}
+        {loading
+          ? "Generating test…"
+          : test
+            ? "🧪 Start Test"   // test exists in DB — neutral label works for first time and returning
+            : "🧪 Take Test"    // no test yet — will generate on click
+        }
       </button>
     );
   }

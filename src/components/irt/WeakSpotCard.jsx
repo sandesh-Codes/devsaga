@@ -26,6 +26,9 @@ function ChevronIcon({ open }) {
 export default function WeakSpotCard({ spot }) {
   const [open, setOpen] = useState(false);
 
+  const resourceCount = spot.resources?.length ?? 0;
+  const hasTest       = !!spot.test;
+
   return (
     <div
       className="rounded-xl overflow-hidden transition-all duration-200"
@@ -70,6 +73,36 @@ export default function WeakSpotCard({ spot }) {
                 <ConfidenceBar value={spot.confidence} />
               </div>
             </div>
+
+            {/* Resources indicator */}
+            {resourceCount > 0 && (
+              <span
+                className="text-[11px] font-code px-2 py-0.5 rounded-full"
+                style={{
+                  background: "rgba(201,168,76,0.06)",
+                  border:     "1px solid rgba(201,168,76,0.15)",
+                  color:      "var(--ds-amber)",
+                }}
+              >
+                📚 {resourceCount} resource{resourceCount !== 1 ? "s" : ""}
+              </span>
+            )}
+
+            {/* Test indicator */}
+            {hasTest && (
+              <span
+                className="text-[11px] font-code px-2 py-0.5 rounded-full"
+                style={{
+                  background: "rgba(167,139,250,0.06)",
+                  border:     "1px solid rgba(167,139,250,0.15)",
+                  color:      "var(--ds-purple)",
+                }}
+              >
+                ✦ test
+              </span>
+            )}
+
+            {/* Resolved badge */}
             {spot.resolved && (
               <span
                 className="text-[11px] font-code px-2 py-0.5 rounded-full"
