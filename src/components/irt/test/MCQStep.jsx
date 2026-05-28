@@ -1,5 +1,7 @@
 "use client";
 
+import FormatText from "@/components/irt/test/FormatText";
+
 // ── MCQ step of the test flow ──────────────────────────────────────────────
 
 export default function MCQStep({ mcq, answers, onAnswer, onContinue }) {
@@ -28,15 +30,21 @@ export default function MCQStep({ mcq, answers, onAnswer, onContinue }) {
             border:     "1px solid var(--ds-border)",
           }}
         >
+          {/* Question text */}
           <p className="text-[13px] leading-relaxed" style={{ color: "var(--ds-text)" }}>
-            <span className="font-code mr-2" style={{ color: "var(--ds-faint)" }}>Q{qi + 1}.</span>
-            {q.question}
+            <span className="font-code mr-2" style={{ color: "var(--ds-faint)" }}>
+              Q{qi + 1}.
+            </span>
+            <FormatText text={q.question} />
           </p>
 
+          {/* Options */}
           <div className="space-y-2">
             {q.options.map((opt, oi) => {
               const letter   = ["A", "B", "C", "D"][oi];
               const selected = answers[qi] === letter;
+              // Strip leading "A. " prefix if AI included it in the option text
+              const optText  = opt.replace(/^[A-D]\.\s*/, "");
 
               return (
                 <button
@@ -52,19 +60,19 @@ export default function MCQStep({ mcq, answers, onAnswer, onContinue }) {
                   }}
                   onMouseOver={e => {
                     if (!selected) {
-                      e.currentTarget.style.color = "var(--ds-text)";
+                      e.currentTarget.style.color       = "var(--ds-text)";
                       e.currentTarget.style.borderColor = "rgba(240,236,224,0.12)";
                     }
                   }}
                   onMouseOut={e => {
                     if (!selected) {
-                      e.currentTarget.style.color = "var(--ds-subtle)";
+                      e.currentTarget.style.color       = "var(--ds-subtle)";
                       e.currentTarget.style.borderColor = "var(--ds-border)";
                     }
                   }}
                 >
                   <span className="font-code mr-2">{letter}.</span>
-                  {opt.replace(/^[A-D]\.\s*/, "")}
+                  <FormatText text={optText} />
                 </button>
               );
             })}

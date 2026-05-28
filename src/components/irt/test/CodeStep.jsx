@@ -1,6 +1,8 @@
 "use client";
 
-// ── Code problem step of the test flow ────────────────────────────────────
+import FormatText from "@/components/irt/test/FormatText";
+
+// ── Section block wrapper ──────────────────────────────────────────────────
 
 function SectionBlock({ label, children }) {
   return (
@@ -18,6 +20,8 @@ function SectionBlock({ label, children }) {
     </div>
   );
 }
+
+// ── Code problem step of the test flow ────────────────────────────────────
 
 export default function CodeStep({ codeProblem, codeAnswer, onChangeAnswer, onBack, onSubmit, submitting }) {
   const { scenario, task, brokenCode, hint } = codeProblem;
@@ -41,17 +45,21 @@ export default function CodeStep({ codeProblem, codeAnswer, onChangeAnswer, onBa
         </button>
       </div>
 
-      {/* Scenario */}
+      {/* Scenario — may contain inline code references */}
       <SectionBlock label="SCENARIO">
-        <p className="text-[13px] leading-relaxed" style={{ color: "#d4cfc4" }}>{scenario}</p>
+        <p className="text-[13px] leading-relaxed" style={{ color: "#d4cfc4" }}>
+          <FormatText text={scenario} />
+        </p>
       </SectionBlock>
 
-      {/* Task */}
+      {/* Task — may contain inline code references */}
       <SectionBlock label="TASK">
-        <p className="text-[13px] leading-relaxed" style={{ color: "#d4cfc4" }}>{task}</p>
+        <p className="text-[13px] leading-relaxed" style={{ color: "#d4cfc4" }}>
+          <FormatText text={task} />
+        </p>
       </SectionBlock>
 
-      {/* Broken code */}
+      {/* Broken code — FIX: was var(--ds-red), now readable warm code color */}
       <div>
         <p className="text-[10px] tracking-widest font-code mb-2" style={{ color: "var(--ds-faint)" }}>
           BROKEN CODE
@@ -59,13 +67,17 @@ export default function CodeStep({ codeProblem, codeAnswer, onChangeAnswer, onBa
         <pre
           className="text-[12px] font-code rounded-lg p-4 overflow-x-auto leading-relaxed whitespace-pre-wrap break-words"
           style={{
-            color:      "var(--ds-red)",
+            color:      "var(--ds-text)",
             background: "var(--ds-bg)",
-            border:     "1px solid rgba(248,113,113,0.15)",
+            border:     "1px solid rgba(248,113,113,0.2)",
           }}
         >
           {brokenCode}
         </pre>
+        {/* Small label so user still knows it's broken without the red text */}
+        <p className="text-[10px] font-code mt-1.5" style={{ color: "rgba(248,113,113,0.5)" }}>
+          ↑ this code contains a bug — find and fix it
+        </p>
       </div>
 
       {/* Hint */}
@@ -77,7 +89,9 @@ export default function CodeStep({ codeProblem, codeAnswer, onChangeAnswer, onBa
         }}
       >
         <span className="text-xs flex-shrink-0 mt-0.5" style={{ color: "var(--ds-orange)" }}>💡</span>
-        <p className="text-[12px] leading-relaxed" style={{ color: "rgba(251,146,60,0.7)" }}>{hint}</p>
+        <p className="text-[12px] leading-relaxed" style={{ color: "rgba(251,146,60,0.7)" }}>
+          <FormatText text={hint} />
+        </p>
       </div>
 
       {/* Answer */}
@@ -92,13 +106,12 @@ export default function CodeStep({ codeProblem, codeAnswer, onChangeAnswer, onBa
           rows={10}
           className="w-full rounded-lg p-4 text-[12px] font-code leading-relaxed resize-none outline-none transition-colors"
           style={{
-            background:   "var(--ds-bg)",
-            border:       "1px solid var(--ds-border)",
-            color:        "#d4cfc4",
-            placeholderColor: "var(--ds-faint)",
+            background: "var(--ds-bg)",
+            border:     "1px solid var(--ds-border)",
+            color:      "#d4cfc4",
           }}
           onFocus={e => e.target.style.borderColor = "rgba(201,168,76,0.3)"}
-          onBlur={e => e.target.style.borderColor = "var(--ds-border)"}
+          onBlur={e => e.target.style.borderColor  = "var(--ds-border)"}
         />
       </div>
 
