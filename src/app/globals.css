@@ -49,22 +49,23 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* added from file B */
+/* ── DevSaga design tokens ────────────────────────────────────────────── */
 :root {
-    --ds-bg: #0c0b09;
+    --ds-bg:      #0c0b09;
     --ds-surface: #141310;
-    --ds-border: rgba(240, 236, 224, 0.07);
-    --ds-text: #f0ece0;
-    --ds-muted: #8a8070;
-    --ds-subtle: #5a5448;
-    --ds-faint: #3a3530;
-    --ds-amber: #c9a84c;
-    --ds-green: #7ec8a0;
-    --ds-red: #f87171;
-    --ds-orange: #fb923c;
-    --ds-purple: #a78bfa;
+    --ds-border:  rgba(240, 236, 224, 0.07);
+    --ds-text:    #f0ece0;
+    --ds-muted:   #8a8070;
+    --ds-subtle:  #5a5448;
+    --ds-faint:   #3a3530;
+    --ds-amber:   #c9a84c;
+    --ds-green:   #7ec8a0;
+    --ds-red:     #f87171;
+    --ds-orange:  #fb923c;
+    --ds-purple:  #a78bfa;
 }
 
+/* ── shadcn/ui tokens ─────────────────────────────────────────────────── */
 :root {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
@@ -140,12 +141,17 @@
     box-sizing: border-box;
   }
 
+  /* ── FIX: use ds-bg as base so body is never white ── */
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background-color: var(--ds-bg);
   }
 
   html {
     @apply font-sans;
+    /* ── FIX: Firefox scrollbar ── */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(240, 236, 224, 0.25) transparent;
   }
 
   .font-display {
@@ -172,15 +178,21 @@
   animation: fadeUp 0.4s ease both;
 }
 
+/* ── Scrollbar — Webkit (Chrome, Edge, Safari) ── */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 
+/* ── FIX: was 0.1 opacity — nearly invisible ── */
 ::-webkit-scrollbar-thumb {
-  background: rgba(240,236,224,0.1);
+  background: rgba(240, 236, 224, 0.25);
   border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(240, 236, 224, 0.4);
 }
