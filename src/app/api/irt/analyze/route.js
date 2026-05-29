@@ -10,6 +10,7 @@ const MINIMUM_SESSIONS = 5;
 export async function POST(req) {
   try {
     const session = await getServerSession(authOptions);
+    const userName = session?.user?.name?.split(" ")[0];
 
     if (!session?.user?.id) {
       return Response.json({ error: "Unauthorized" }, { status: 401 });
@@ -38,7 +39,7 @@ export async function POST(req) {
       );
     }
 
-    const prompt = buildAnalysisPrompt(sessions);
+    const prompt = buildAnalysisPrompt(sessions, userName);
     const aiText = await getAIResponse(prompt);
     const weakSpots = parseAnalysisResponse(aiText);
 

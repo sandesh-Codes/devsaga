@@ -52,7 +52,9 @@ Classify the error into exactly one category:
 `;
 }
 
-export function buildAnalysisPrompt(sessions) {
+export function buildAnalysisPrompt(sessions, userName) {
+  const name = userName || "The developer";
+
   const summary = sessions.map((s, i) => {
     const response = s.response;
     return `
@@ -68,6 +70,8 @@ Session ${i + 1}:
   return `
 You are a senior engineering mentor analyzing a developer's debugging history.
 
+The developer's name is ${name}.
+
 Here are their recent debug sessions:
 
 ${summary}
@@ -82,7 +86,7 @@ Return STRICTLY this JSON format, nothing outside it:
   "weakSpots": [
     {
       "topic": "Specific concept name (3-6 words)",
-      "description": "2-3 sentences explaining what they struggle with and why it matters",
+      "description": "One sharp sentence starting with '${name}, you...' — state exactly what they keep getting wrong. No fluff, no 'it matters because', just the pattern.",
       "confidence": <1-10, how confident you are this is a real pattern>,
       "sessionCount": <how many sessions show evidence of this weak spot>
     }
@@ -91,19 +95,18 @@ Return STRICTLY this JSON format, nothing outside it:
 
 - Cluster aggressively — if two topics are about the same underlying concept, merge them into one
 - Ask yourself: would a mentor teach these separately? If no, merge them
-- Max 5 weak spots, but fewer is better if patterns overlap
 - Never create two weak spots from the same root concept
 
 Rules:
 - Cluster aggressively — same root concept = one weak spot, not two
-- Max 5 weak spots, fewer is better if patterns overlap  
+- Max 8 weak spots, fewer is better if patterns overlap
 - Only include patterns appearing in 2+ sessions, skip one-offs
 - Topics must be specific: "useEffect dependency array" not "React"
 - Order by confidence descending
+- Description must start with "${name}, you..." and be one sentence only
 - Do not return anything outside the JSON
   `;
 }
-
 
 export function buildResourcesPrompt(weakSpot) {
   return `
