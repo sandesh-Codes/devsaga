@@ -136,11 +136,6 @@ export default function LandingPage() {
 
         {/* ── HERO ── */}
         <section className="px-6 md:px-12 pt-20 pb-16 md:pt-28 md:pb-24 max-w-5xl mx-auto">
-          <div className="fade-up-1 mb-4">
-            <span className="font-mono-jet text-[11px] tag-pill px-3 py-1 rounded-full inline-block tracking-wider">
-              AI DEBUGGING COMPANION
-            </span>
-          </div>
 
           <h1 className="font-display fade-up-2 mb-6 leading-[1.1] tracking-tight" style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)", color: "#f0ece0" }}>
             Your bugs are trying<br />
