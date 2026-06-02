@@ -120,7 +120,6 @@ export default function LandingPage() {
         <nav className="flex items-center justify-between px-6 md:px-12 py-5 border-b" style={{ borderColor: "rgba(240,236,224,0.06)" }}>
           <div className="flex items-center gap-2">
             <span className="font-display text-lg font-bold" style={{ color: "#f0ece0" }}>DevSaga</span>
-            <span className="font-mono-jet text-[10px] tag-pill px-2 py-0.5 rounded-full hidden sm:block">beta</span>
           </div>
           <div className="flex items-center gap-3">
             <span className="text-sm hidden sm:block" style={{ color: "rgba(240,236,224,0.4)" }}>
