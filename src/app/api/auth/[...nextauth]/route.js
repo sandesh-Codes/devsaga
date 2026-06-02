@@ -38,7 +38,7 @@ export const authOptions = {
 
   callbacks: {
     async signIn({ user, account, profile }) {
-    if (!user?.id) return true
+    if (!user?.id) return false
 
     await prisma.user.update({
         where: { id: user.id },
