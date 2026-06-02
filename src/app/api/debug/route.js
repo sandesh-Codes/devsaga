@@ -9,6 +9,10 @@ export async function POST(req) {
   try {
     const session = await getServerSession(authOptions);
 
+    if (!session) {
+    return Response.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
     const body = await req.json();
 
     const prompt = buildDebugPrompt(body);
