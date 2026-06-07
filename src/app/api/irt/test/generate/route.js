@@ -31,12 +31,10 @@ export async function POST(req) {
       return Response.json({ error: "Weak spot not found" }, { status: 404 });
     }
 
-    // if test already generated, return it
     if (weakSpot.test) {
       return Response.json({ test: weakSpot.test });
     }
 
-    // fetch their actual debug sessions for this weak area
     const debugSessions = await prisma.debugSession.findMany({
       where: {
         userId: session.user.id,

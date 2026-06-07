@@ -31,7 +31,6 @@ export async function POST(req) {
       return Response.json({ error: "Weak spot not found" }, { status: 404 });
     }
 
-    // if resources already generated, return them
     if (weakSpot.resources.length > 0) {
       return Response.json({ resources: weakSpot.resources });
     }
@@ -40,7 +39,6 @@ export async function POST(req) {
     const aiText = await getAIResponse(prompt);
     const resources = parseResourcesResponse(aiText);
 
-    // save resources to DB
     await prisma.resource.createMany({
       data: resources.map((r) => ({
         title: r.title,

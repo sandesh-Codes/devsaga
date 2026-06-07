@@ -43,7 +43,6 @@ export async function POST(req) {
     const aiText = await getAIResponse(prompt);
     const weakSpots = parseAnalysisResponse(aiText);
 
-    // upsert weak spots — update if exists, create if not
     for (const spot of weakSpots) {
       const existing = await prisma.weakSpot.findFirst({
         where: {
