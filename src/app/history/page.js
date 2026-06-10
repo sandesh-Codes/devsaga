@@ -5,36 +5,9 @@ import { useSession, signIn } from "next-auth/react";
 import Topbar from "@/components/layout/Topbar";
 import SessionCard from "@/components/history/SessionCard";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import UnauthenticatedState from "@/components/UnauthenticatedState";
 import Link from "next/link";
 
-
-// ── Unauthenticated state ──────────────────────────────────────────────────
-
-function UnauthenticatedState() {
-  return (
-    <div
-      className="min-h-screen flex items-center justify-center p-4"
-      style={{ background: "var(--ds-bg)" }}
-    >
-      <div className="text-center space-y-4">
-        <p className="text-3xl">🔒</p>
-        <p className="font-medium" style={{ color: "var(--ds-text)" }}>
-          Sign in to view your history
-        </p>
-        <p className="text-sm" style={{ color: "var(--ds-subtle)" }}>
-          Your debug sessions are saved per account
-        </p>
-        <button
-          onClick={() => signIn()}
-          className="mt-2 px-5 py-2 text-sm rounded-lg font-semibold transition-colors"
-          style={{ background: "var(--ds-amber)", color: "#0c0b09" }}
-        >
-          Sign in
-        </button>
-      </div>
-    </div>
-  );
-}
 
 // ── Main page ──────────────────────────────────────────────────────────────
 
@@ -55,7 +28,7 @@ export default function HistoryPage() {
     }
   }, [status]);
 
-  if (status === "unauthenticated") return <UnauthenticatedState />;
+  if (status === "unauthenticated") return <UnauthenticatedState title="Sign in to view your history" description="Your debug sessions are saved per account" />;
 
   return (
     <div className="min-h-screen" style={{ background: "var(--ds-bg)" }}>

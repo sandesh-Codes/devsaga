@@ -1,44 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSession, signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Topbar          from "@/components/layout/Topbar";
 import WeakSpotCard    from "@/components/irt/WeakSpotCard";
 import SessionProgress from "@/components/irt/SessionProgress";
 import EmptyAnalysis from "@/components/irt/EmptyAnalysis";
 import { MINIMUM_SESSIONS } from "@/config/irtConstants";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
-
-// ── Unauthenticated state ──────────────────────────────────────────────────
-
-function UnauthenticatedState() {
-  return (
-    <div
-      className="min-h-screen flex items-center justify-center p-4"
-      style={{ background: "var(--ds-bg)" }}
-    >
-      <div className="text-center space-y-4">
-        <p className="text-3xl">🔒</p>
-        <p className="font-medium" style={{ color: "var(--ds-text)" }}>
-          Sign in to access Insights
-        </p>
-        <p className="text-sm" style={{ color: "var(--ds-subtle)" }}>
-          IRT is available on the free plan
-        </p>
-        <button
-          onClick={() => signIn()}
-          className="mt-2 px-5 py-2 text-sm rounded-lg font-semibold transition-colors"
-          style={{ background: "var(--ds-amber)", color: "#0c0b09" }}
-        >
-          Sign in
-        </button>
-      </div>
-    </div>
-  );
-}
-
-// ── Empty states ───────────────────────────────────────────────────────────
-
+import UnauthenticatedState from "@/components/UnauthenticatedState";
 
 
 // ── Main page ──────────────────────────────────────────────────────────────
@@ -101,7 +71,7 @@ export default function IRTPage() {
     }
   }
 
-  if (status === "unauthenticated") return <UnauthenticatedState />;
+  if (status === "unauthenticated") return <UnauthenticatedState title="Sign in to access Insights" description="IRT is available on the free plan" />;
 
   return (
     <div className="min-h-screen" style={{ background: "var(--ds-bg)" }}>
