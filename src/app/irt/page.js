@@ -7,22 +7,7 @@ import WeakSpotCard    from "@/components/irt/WeakSpotCard";
 import SessionProgress from "@/components/irt/SessionProgress";
 import EmptyAnalysis from "@/components/irt/EmptyAnalysis";
 import { MINIMUM_SESSIONS } from "@/config/irtConstants";
-
-// ── Loading skeleton ───────────────────────────────────────────────────────
-
-function LoadingSkeleton() {
-  return (
-    <div className="space-y-3">
-      {[...Array(3)].map((_, i) => (
-        <div
-          key={i}
-          className="h-16 rounded-xl animate-pulse"
-          style={{ background: "var(--ds-surface)", border: "1px solid var(--ds-border)" }}
-        />
-      ))}
-    </div>
-  );
-}
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 // ── Unauthenticated state ──────────────────────────────────────────────────
 
