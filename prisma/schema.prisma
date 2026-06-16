@@ -17,6 +17,7 @@ model User {
   emailVerified DateTime?
   image         String?
   name          String?
+  apiToken      String?        @unique
   accounts      Account[]
   debugSessions DebugSession[]
   sessions      Session[]
