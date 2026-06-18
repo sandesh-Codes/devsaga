@@ -301,62 +301,6 @@ export default function LandingPage() {
 
         <hr className="divider mx-6 md:mx-12" />
 
-        {/* ── FREEMIUM ── */}
-        <section className="px-6 md:px-12 py-20 max-w-5xl mx-auto">
-          <p className="font-mono-jet text-[11px] tracking-widest mb-12" style={{ color: "rgba(240,236,224,0.3)" }}>
-            PRICING
-          </p>
-          <div className="grid sm:grid-cols-2 gap-6 max-w-2xl">
-            {[
-              {
-                plan: "Free",
-                price: "$0",
-                desc: "No credit card. No catch.",
-                features: ["Unlimited debug sessions", "Structured AI analysis", "Debug history", "Full IRT — insights, resources, tests"],
-                cta: "Get started free",
-                highlight: false,
-              },
-              {
-                plan: "Pro",
-                price: "Coming soon",
-                desc: "VS Code extension + more.",
-                features: ["Everything in Free", "VS Code extension", "Capture errors inline", "Fix in sidebar without leaving editor"],
-                cta: "Notify me",
-                highlight: true,
-              },
-            ].map((p) => (
-              <div
-                key={p.plan}
-                className="feature-card card-hover p-6"
-                style={{ border: p.highlight ? "1px solid rgba(201,168,76,0.2)" : undefined }}
-              >
-                <div className="flex items-center justify-between mb-1">
-                  <p className="font-mono-jet text-[11px] tracking-widest" style={{ color: "rgba(240,236,224,0.3)" }}>{p.plan.toUpperCase()}</p>
-                  {p.highlight && <span className="font-mono-jet text-[10px] tag-pill px-2 py-0.5 rounded-full">soon</span>}
-                </div>
-                <p className="font-display text-2xl font-bold mb-1" style={{ color: p.highlight ? "#c9a84c" : "#f0ece0" }}>{p.price}</p>
-                <p className="text-xs mb-5" style={{ color: "rgba(240,236,224,0.35)" }}>{p.desc}</p>
-                <ul className="space-y-2 mb-6">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-xs" style={{ color: "rgba(240,236,224,0.5)" }}>
-                      <span style={{ color: p.highlight ? "#c9a84c" : "#7ec8a0" }} className="mt-0.5 shrink-0">✓</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <button
-                  onClick={() => p.highlight ? null : signIn()}
-                  className={`w-full py-2.5 rounded-lg text-sm ${p.highlight ? "btn-primary" : "btn-secondary"}`}
-                  style={p.highlight ? { opacity: 0.6, cursor: "default" } : {}}
-                >
-                  {p.cta}
-                </button>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <hr className="divider mx-6 md:mx-12" />
 
         {/* ── FINAL CTA ── */}
         <section className="px-6 md:px-12 py-24 text-center max-w-3xl mx-auto">
