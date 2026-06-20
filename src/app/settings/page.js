@@ -2,24 +2,17 @@
 
 import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function SettingsPage() {
     const { data: session, status } = useSession();
-  const router = useRouter();
     const [token, setToken] = useState(null);
     const [loading, setLoading] = useState(true);
     const [generating, setGenerating] = useState(false);
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
-         if (status === "unauthenticated") {
-      router.push("/login");
-      return;
-    }
-
       if ( status === "authenticated") {
         fetch("/api/extension/token")
       .then(res => res.json())
@@ -44,9 +37,9 @@ export default function SettingsPage() {
         setTimeout(() => setCopied(false), 2000);
     }
 
-      if (status === "loading" || status === "unauthenticated") {
-    return null;
-  }
+      if (status === "loading") {
+  return null;
+}
 
     return (
     <div className="max-w-2xl mx-auto p-8">
