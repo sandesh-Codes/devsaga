@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn, signOut } from "next-auth/react";
 import MobileMenu from "@/components/layout/MobileMenu";
+import Logo from "@/components/layout/Logo";
 
 // ── Desktop nav link ───────────────────────────────────────────────────────
 
@@ -125,12 +126,8 @@ export default function Topbar({ session, activePage = "debug" }) {
       }}
     >
       {/* Logo */}
-      <button
-        onClick={() => router.push("/debug")}
-        className="font-display font-bold text-lg"
-        style={{ color: "var(--ds-text)" }}
-      >
-        DevSaga
+      <button onClick={() => router.push("/debug")}>
+        <Logo size={28} />
       </button>
 
       {/* Desktop nav — hidden on mobile */}

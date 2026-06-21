@@ -2,6 +2,7 @@
 
 import { signIn } from "next-auth/react";
 import Topbar from "@/components/layout/Topbar";
+import Logo from "@/components/layout/Logo";
 
 export default function LandingPage({ session }) {
   return (
@@ -123,7 +124,7 @@ export default function LandingPage({ session }) {
         ) : (
           <nav className="flex items-center justify-between px-6 md:px-12 py-5 border-b" style={{ borderColor: "rgba(240,236,224,0.06)" }}>
             <div className="flex items-center gap-2">
-              <span className="font-display text-lg font-bold" style={{ color: "#f0ece0" }}>DevSaga</span>
+              <Logo size={26} />
             </div>
             <div className="flex items-center gap-3">
               <span className="text-sm hidden sm:block" style={{ color: "rgba(240,236,224,0.4)" }}>
@@ -348,7 +349,7 @@ export default function LandingPage({ session }) {
 
         {/* ── FOOTER ── */}
         <footer className="border-t px-6 md:px-12 py-6 flex flex-col sm:flex-row items-center justify-between gap-2" style={{ borderColor: "rgba(240,236,224,0.06)" }}>
-          <span className="font-display font-bold text-sm" style={{ color: "rgba(240,236,224,0.3)" }}>DevSaga</span>
+          <Logo size={18} muted />
           <p className="font-mono-jet text-[11px]" style={{ color: "rgba(240,236,224,0.2)" }}>
             built by sandesh · {new Date().getFullYear()}
           </p>
