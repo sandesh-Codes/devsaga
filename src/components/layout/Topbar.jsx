@@ -126,7 +126,7 @@ export default function Topbar({ session, activePage = "debug" }) {
     >
       {/* Logo */}
       <button
-        onClick={() => router.push("/")}
+        onClick={() => router.push("/debug")}
         className="font-display font-bold text-lg"
         style={{ color: "var(--ds-text)" }}
       >
@@ -135,7 +135,7 @@ export default function Topbar({ session, activePage = "debug" }) {
 
       {/* Desktop nav — hidden on mobile */}
       <nav className="hidden md:flex items-center gap-1">
-        <NavLink href="/"        label="Debug"       active={activePage === "debug"} />
+        <NavLink href="/debug"   label="Debug"       active={activePage === "debug"} />
         <NavLink href="/history" label="History"     active={activePage === "history"} />
         <NavLink href="/irt"     label="My Patterns" active={activePage === "irt"} />
       </nav>
