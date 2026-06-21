@@ -62,7 +62,7 @@ export default function HistoryPage() {
               Debug something to get started
             </p>
             <Link
-              href="/"
+              href="/debug"
               className="inline-block mt-2 px-5 py-2 text-sm rounded-lg font-code transition-colors"
               style={{
                 border: "1px solid rgba(201,168,76,0.3)",
