@@ -25,8 +25,7 @@ export default function DebugPage() {
   const [loading, setLoading] = useState(false);
   const [error,   setError]   = useState("");
 
-  // Middleware already protects this route, but keep a loading guard so we
-  // don't flash content before the session resolves on first paint.
+
   if (status === "loading") return <LoadingScreen />;
 
   async function handleSubmit(formData) {

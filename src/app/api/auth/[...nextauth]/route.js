@@ -29,7 +29,7 @@ export const authOptions = {
   ],
 
   session: {
-    strategy: "database",
+    strategy: "jwt",
   },
 
   pages: {
@@ -50,8 +50,15 @@ export const authOptions = {
     return true
 },
 
-    async session({ session, user }) {
-      session.user.id = user.id;
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.user.id = token.id;
       return session;
     },
   },
