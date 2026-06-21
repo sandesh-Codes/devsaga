@@ -10,7 +10,7 @@ export default function LoginPage() {
 
   function handleSignIn(provider) {
     setLoadingProvider(provider);
-    signIn(provider, { callbackUrl: "/" });
+    signIn(provider, { callbackUrl: "/debug" });
   }
 
   return (
