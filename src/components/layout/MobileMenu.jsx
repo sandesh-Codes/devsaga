@@ -46,7 +46,7 @@ export default function MobileMenu({ session }) {
               borderBottom: "1px solid var(--ds-border)",
             }}
           >
-            <MenuItem href="/"        label="Debug"       onClick={close} />
+            <MenuItem href="/debug"   label="Debug"       onClick={close} />
             <MenuItem href="/history" label="History"     onClick={close} />
             <MenuItem href="/irt"     label="My Patterns" onClick={close} />
 
